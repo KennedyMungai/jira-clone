@@ -13,6 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { signInSchema } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
@@ -101,6 +102,17 @@ const SignInCard = () => {
           <FaGithub size={24} className="mr-2" />
           Login with Github
         </Button>
+      </CardContent>
+      <div className="px-7">
+        <DottedSeparator />
+      </div>
+      <CardContent className="flex items-center justify-center p-7">
+        <p>
+          Don&apos;t have an account?{" "}
+          <Link href="/sign-up">
+            <span className="text-blue-700 hover:underline">Sign Up</span>
+          </Link>
+        </p>
       </CardContent>
     </Card>
   );
