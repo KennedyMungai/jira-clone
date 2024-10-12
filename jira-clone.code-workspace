@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"cSpell.words": [
+			"clsx",
+			"hookform",
+			"lucide",
+			"nums",
+			"sonner",
+			"tailwindcss",
+			"teritary",
+			"vaul"
+		]
+	}
+}
