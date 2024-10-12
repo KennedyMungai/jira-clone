@@ -14,7 +14,7 @@ const AuthLayout = ({ children }: Props) => {
   const pathname = usePathname();
 
   return (
-    <main className="h-full bg-neutral-100">
+    <main className="h-full overflow-y-auto bg-neutral-100">
       <div className="mx-auto max-w-screen-2xl p-4">
         <nav className="flex items-center justify-between">
           <Image src="/logo.svg" alt="logo" width={152} height={56} />
@@ -24,7 +24,7 @@ const AuthLayout = ({ children }: Props) => {
             </Link>
           </Button>
         </nav>
-        <div className="flex flex-col items-center justify-center pt-4 md:pt-14">
+        <div className="flex flex-col items-center justify-center pb-6 pt-4 md:pt-14">
           {children}
         </div>
       </div>
