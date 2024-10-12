@@ -148,7 +148,7 @@ const SignUpCard = () => {
         <p>
           Already have an account?{" "}
           <Link href="/sign-in">
-            <span className="text-blue-700 hover:underline">Sign In</span>
+            <span className="text-blue-700 hover:underline"> Sign In</span>
           </Link>
         </p>
       </CardContent>

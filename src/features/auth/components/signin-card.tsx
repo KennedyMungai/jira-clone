@@ -110,7 +110,7 @@ const SignInCard = () => {
         <p>
           Don&apos;t have an account?{" "}
           <Link href="/sign-up">
-            <span className="text-blue-700 hover:underline">Sign Up</span>
+            <span className="text-blue-700 hover:underline"> Sign Up</span>
           </Link>
         </p>
       </CardContent>
