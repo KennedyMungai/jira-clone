@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { FcGoogle } from "react-icons/fc";
-import { FaGit, FaGithub } from "react-icons/fa";
+import { FaGithub } from "react-icons/fa";
 
 const SignInCard = () => {
   return (
