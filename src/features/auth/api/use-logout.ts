@@ -14,10 +14,11 @@ export const useLogout = () => {
 
       return await response.json();
     },
-    onSuccess: () =>
-      queryClient.invalidateQueries({ queryKey: ["current-user"] }),
+    onSuccess: () => {
+      window.location.reload();
+      queryClient.invalidateQueries({ queryKey: ["current-user"] });
+    },
   });
 
   return mutation;
 };
-  
