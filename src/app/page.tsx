@@ -1,6 +1,12 @@
+import { getCurrent } from "@/features/auth/actions";
 import UserButton from "@/features/auth/components/user-button";
+import { redirect } from "next/navigation";
 
-const HomePage = () => {
+const HomePage = async () => {
+  const user = getCurrent();
+
+  if (!user) redirect("/sign-in");
+
   return (
     <div className="space-y-4 p-4">
       Only visible to authorized users
