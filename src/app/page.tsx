@@ -1,8 +1,8 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { useCurrent } from "@/features/auth/api/use-current";
 import { useLogout } from "@/features/auth/api/use-logout";
+import UserButton from "@/features/auth/components/user-button";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
@@ -19,9 +19,7 @@ const HomePage = () => {
   return (
     <div className="space-y-4 p-4">
       Only visible to authorized users
-      <Button onClick={mutate} disabled={isPending}>
-        Logout
-      </Button>
+      <UserButton />
     </div>
   );
 };
