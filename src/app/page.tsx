@@ -3,7 +3,7 @@ import UserButton from "@/features/auth/components/user-button";
 import { redirect } from "next/navigation";
 
 const HomePage = async () => {
-  const user = getCurrent();
+  const user = await getCurrent();
 
   if (!user) redirect("/sign-in");
 
