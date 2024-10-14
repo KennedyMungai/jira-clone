@@ -8,7 +8,9 @@ const app = new Hono().post(
   async (c) => {
     const { email, password } = await c.req.valid("json");
 
-    return c.json({ success: "ok" });
+    console.log({ email, password });
+
+    return c.json({ email, password });
   },
 );
 
