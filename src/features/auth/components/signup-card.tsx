@@ -17,6 +17,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useRegister } from "@/features/auth/api/use-register";
 import { signUpSchema } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
@@ -24,7 +25,6 @@ import { useForm } from "react-hook-form";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { z } from "zod";
-import { useRegister } from "@/features/auth/api/use-register";
 
 const SignUpCard = () => {
   const form = useForm<z.infer<typeof signUpSchema>>({
