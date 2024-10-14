@@ -41,7 +41,7 @@ const app = new Hono()
       maxAge: 60 * 60 * 24 * 30,
     });
 
-    return c.json({ data: user });
+    return c.json({ success: true });
   });
 
 export default app;
