@@ -29,7 +29,7 @@ const app = new Hono()
 
     const { account } = await createAdminClient();
 
-    const user = await account.create(ID.unique(), email, password, name);
+    await account.create(ID.unique(), email, password, name);
 
     const session = await account.createEmailPasswordSession(email, password);
 
