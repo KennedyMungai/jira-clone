@@ -12,4 +12,5 @@ export const useLogin = () =>
 
       return await response.json();
     },
+    onSuccess: () => window.location.reload(),
   });
