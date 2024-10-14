@@ -11,7 +11,7 @@ const app = new Hono()
   .post("/register", zValidator("json", signUpSchema), async (c) => {
     const { email, name, password } = await c.req.valid("json");
 
-    return c.json({ email, name, password });
+    return c.json({ success: "ok" });
   });
 
 export default app;

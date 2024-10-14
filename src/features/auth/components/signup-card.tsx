@@ -24,6 +24,7 @@ import { useForm } from "react-hook-form";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { z } from "zod";
+import { useRegister } from "@/features/auth/api/use-register";
 
 const SignUpCard = () => {
   const form = useForm<z.infer<typeof signUpSchema>>({
@@ -35,8 +36,9 @@ const SignUpCard = () => {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof signUpSchema>) =>
-    console.log(values);
+  const { mutate, isPending } = useRegister();
+
+  const onSubmit = (values: z.infer<typeof signUpSchema>) => mutate(values);
 
   return (
     <Card className="size-full border-none shadow-none md:w-[486px]">
@@ -73,6 +75,7 @@ const SignUpCard = () => {
                       {...field}
                       type="text"
                       placeholder="Enter your name"
+                      disabled={isPending}
                     />
                   </FormControl>
                   <FormMessage />
@@ -89,6 +92,7 @@ const SignUpCard = () => {
                       {...field}
                       type="email"
                       placeholder="Enter your email address"
+                      disabled={isPending}
                     />
                   </FormControl>
                   <FormMessage />
@@ -105,6 +109,7 @@ const SignUpCard = () => {
                       {...field}
                       type="password"
                       placeholder="Enter your password"
+                      disabled={isPending}
                     />
                   </FormControl>
                   <FormMessage />
@@ -112,7 +117,12 @@ const SignUpCard = () => {
               )}
             />
 
-            <Button disabled={false} type="submit" size="lg" className="w-full">
+            <Button
+              disabled={isPending}
+              type="submit"
+              size="lg"
+              className="w-full"
+            >
               Login
             </Button>
           </form>
@@ -126,7 +136,7 @@ const SignUpCard = () => {
           variant={"secondary"}
           size="lg"
           className="w-full"
-          disabled={false}
+          disabled={isPending}
         >
           <FcGoogle size={24} className="mr-2" />
           Login with Google
@@ -135,7 +145,7 @@ const SignUpCard = () => {
           variant={"secondary"}
           size="lg"
           className="w-full"
-          disabled={false}
+          disabled={isPending}
         >
           <FaGithub size={24} className="mr-2" />
           Login with Github
