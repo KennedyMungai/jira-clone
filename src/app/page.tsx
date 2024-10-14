@@ -7,6 +7,8 @@ const HomePage = async () => {
 
   if (!user) redirect("/sign-in");
 
+  console.log({ user });
+
   return (
     <div className="space-y-4 p-4">
       Only visible to authorized users
