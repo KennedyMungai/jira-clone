@@ -123,7 +123,7 @@ const SignUpCard = () => {
               size="lg"
               className="w-full"
             >
-              Login
+              Register
             </Button>
           </form>
         </Form>
