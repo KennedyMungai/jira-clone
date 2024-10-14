@@ -8,8 +8,6 @@ const app = new Hono().post(
   async (c) => {
     const { email, password } = await c.req.valid("json");
 
-    console.log({ email, password });
-
     return c.json({ email, password });
   },
 );
