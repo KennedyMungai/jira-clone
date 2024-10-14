@@ -11,6 +11,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useLogin } from "@/features/auth/api/use-login";
 import { signInSchema } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
@@ -28,8 +29,9 @@ const SignInCard = () => {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof signInSchema>) =>
-    console.log(values);
+  const { mutate, isPending } = useLogin();
+
+  const onSubmit = (values: z.infer<typeof signInSchema>) => mutate(values);
 
   return (
     <Card className="size-full border-none shadow-none md:w-[486px]">
@@ -52,6 +54,7 @@ const SignInCard = () => {
                       {...field}
                       type="email"
                       placeholder="Enter your email address"
+                      disabled={isPending}
                     />
                   </FormControl>
                   <FormMessage />
@@ -68,13 +71,19 @@ const SignInCard = () => {
                       {...field}
                       type="password"
                       placeholder="Enter your password"
+                      disabled={isPending}
                     />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button disabled={false} type="submit" size="lg" className="w-full">
+            <Button
+              disabled={isPending}
+              type="submit"
+              size="lg"
+              className="w-full"
+            >
               Login
             </Button>
           </form>
@@ -88,7 +97,7 @@ const SignInCard = () => {
           variant={"secondary"}
           size="lg"
           className="w-full"
-          disabled={false}
+          disabled={isPending}
         >
           <FcGoogle size={24} className="mr-2" />
           Login with Google
@@ -97,7 +106,7 @@ const SignInCard = () => {
           variant={"secondary"}
           size="lg"
           className="w-full"
-          disabled={false}
+          disabled={isPending}
         >
           <FaGithub size={24} className="mr-2" />
           Login with Github
