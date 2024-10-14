@@ -1,5 +1,3 @@
-"use server";
-
 import { AUTH_COOKIE } from "@/features/auth/constants";
 import { cookies } from "next/headers";
 import { Account, Client } from "node-appwrite";
