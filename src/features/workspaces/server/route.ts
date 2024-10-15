@@ -29,7 +29,7 @@ const app = new Hono()
     const workspaces = await databases.listDocuments(
       DATABASE_ID,
       WORKSPACES_ID,
-      [Query.orderDesc("createdAt"), Query.contains("$id", workspaceIds)],
+      [Query.orderDesc("$createdAt"), Query.contains("$id", workspaceIds)],
     );
 
     return c.json({ data: workspaces });
