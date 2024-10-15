@@ -15,6 +15,8 @@ export const useLogin = () => {
     mutationFn: async (json) => {
       const response = await client.api.auth.login.$post({ json });
 
+      if (!response.ok) throw new Error("Failed to log in");
+
       return await response.json();
     },
     onSuccess: () => {
@@ -22,7 +24,7 @@ export const useLogin = () => {
       queryClient.invalidateQueries({ queryKey: ["current-user"] });
       toast.success("Logged in");
     },
-    onError: () => toast.error("Failed to log in"),
+    onError: (error) => toast.error(error.message),
   });
 
   return mutation;

@@ -15,6 +15,8 @@ export const useLogout = () => {
     mutationFn: async () => {
       const response = await client.api.auth.logout.$post();
 
+      if (!response.ok) throw new Error("Failed to log out");
+
       return await response.json();
     },
     onSuccess: () => {
@@ -22,7 +24,7 @@ export const useLogout = () => {
       queryClient.invalidateQueries({ queryKey: ["current-user"] });
       toast.success("Logged Out successfully");
     },
-    onError: () => toast.error("Failed to log out"),
+    onError: (error) => toast.error(error.message),
   });
 
   return mutation;
