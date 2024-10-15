@@ -37,7 +37,7 @@ const WorkspaceSwitcher = () => {
                   name={workspace.name}
                   image={workspace.image}
                 />
-                <p>{workspace.name}</p>
+                <span className="truncate">{workspace.name}</span>
               </div>
             </SelectItem>
           ))}
