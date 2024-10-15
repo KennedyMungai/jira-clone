@@ -27,7 +27,7 @@ const ResponsiveModal = ({ children, open, onOpenChange }: Props) => {
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
       <DrawerContent>
-        <div className="hide-scrollbar max-h-[85vh] w-full overflow-y-auto border-none p-0 sm:max-w-lg">
+        <div className="hide-scrollbar m-auto max-h-[85vh] w-full overflow-y-auto border-none p-0 sm:max-w-lg">
           {children}
         </div>
       </DrawerContent>
