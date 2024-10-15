@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useGetWorkspaces } from "@/features/workspaces/api/use-get-workspaces";
+import WorkspaceAvatar from "@/features/workspaces/components/workspace-avatar";
 import { RiAddCircleFill } from "react-icons/ri";
 
 const WorkspaceSwitcher = () => {
@@ -31,7 +32,13 @@ const WorkspaceSwitcher = () => {
         <SelectContent>
           {workspaces?.documents.map((workspace) => (
             <SelectItem key={workspace.$id} value={workspace.$id}>
-              {workspace.name}
+              <div className="flex items-center justify-start gap-3 font-medium">
+                <WorkspaceAvatar
+                  name={workspace.name}
+                  image={workspace.image}
+                />
+                <p>{workspace.name}</p>
+              </div>
             </SelectItem>
           ))}
         </SelectContent>
