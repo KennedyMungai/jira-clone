@@ -7,6 +7,7 @@ import {
 import { MemberRole } from "@/features/members/types";
 import { createWorkspaceSchema } from "@/features/workspaces/schema";
 import { sessionMiddleware } from "@/lib/session-middleware";
+import { generateInviteCode } from "@/lib/utils";
 import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 import { ID, Query } from "node-appwrite";
@@ -70,6 +71,7 @@ const app = new Hono()
           name,
           userId: user.$id,
           imageUrl: uploadedImageUrl,
+          inviteCode: generateInviteCode({ length: 6 }),
         },
       );
 
