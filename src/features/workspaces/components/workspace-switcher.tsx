@@ -10,6 +10,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { useGetWorkspaces } from "@/features/workspaces/api/use-get-workspaces";
 import WorkspaceAvatar from "@/features/workspaces/components/workspace-avatar";
+import { useCreateWorkspaceModal } from "@/features/workspaces/hooks/use-create-workspace-modal";
 import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 import { useRouter } from "next/navigation";
 import { RiAddCircleFill } from "react-icons/ri";
@@ -17,6 +18,8 @@ import { RiAddCircleFill } from "react-icons/ri";
 const WorkspaceSwitcher = () => {
   const router = useRouter();
   const { data: workspaces, isPending } = useGetWorkspaces();
+
+  const { open } = useCreateWorkspaceModal();
 
   const workspaceId = useWorkspaceId();
 
@@ -38,7 +41,10 @@ const WorkspaceSwitcher = () => {
     <div className="flex flex-col gap-y-2">
       <div className="flex items-center justify-between">
         <p className="text-xs uppercase text-neutral-500">Workspaces</p>
-        <RiAddCircleFill className="size-5 cursor-pointer text-neutral-500 transition hover:opacity-75" />
+        <RiAddCircleFill
+          className="size-5 cursor-pointer text-neutral-500 transition hover:opacity-75"
+          onClick={open}
+        />
       </div>
       <Select onValueChange={onSelect} value={workspaceId}>
         <SelectTrigger className="w-full bg-neutral-200 p-1 font-medium">
