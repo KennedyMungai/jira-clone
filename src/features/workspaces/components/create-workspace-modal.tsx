@@ -5,11 +5,11 @@ import CreateWorkspaceForm from "@/features/workspaces/components/create-workspa
 import { useCreateWorkspaceModal } from "@/features/workspaces/hooks/use-create-workspace-modal";
 
 const CreateWorkspaceModal = () => {
-  const { isOpen, setIsOpen } = useCreateWorkspaceModal();
+  const { isOpen, setIsOpen, close } = useCreateWorkspaceModal();
 
   return (
     <ResponsiveModal open={isOpen} onOpenChange={setIsOpen}>
-      <CreateWorkspaceForm />
+      <CreateWorkspaceForm onCancel={close} />
     </ResponsiveModal>
   );
 };
