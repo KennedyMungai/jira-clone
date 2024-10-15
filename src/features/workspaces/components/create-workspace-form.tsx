@@ -35,12 +35,8 @@ const CreateWorkspaceForm = ({ onCancel }: Props) => {
     resolver: zodResolver(createWorkspaceSchema),
     defaultValues: {
       name: "",
-      image: undefined,
     },
   });
-
-  const onSubmit = (values: z.infer<typeof createWorkspaceSchema>) =>
-    mutate(values, { onSuccess: () => form.reset() });
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -48,6 +44,15 @@ const CreateWorkspaceForm = ({ onCancel }: Props) => {
     if (file) {
       form.setValue("image", file);
     }
+  };
+
+  const onSubmit = (values: z.infer<typeof createWorkspaceSchema>) => {
+    const finalValues = {
+      ...values,
+      image: values.image instanceof File ? values.image : "",
+    };
+
+    mutate(finalValues, { onSuccess: () => form.reset() });
   };
 
   return (
@@ -99,7 +104,7 @@ const CreateWorkspaceForm = ({ onCancel }: Props) => {
                             }
                             fill
                             className="object-cover"
-                            alt="workspace-icon"
+                            alt="workspace-logo"
                           />
                         </div>
                       ) : (
