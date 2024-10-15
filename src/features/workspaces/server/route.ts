@@ -1,4 +1,10 @@
-import { DATABASE_ID, IMAGES_BUCKET_ID, WORKSPACES_ID } from "@/config";
+import {
+  DATABASE_ID,
+  IMAGES_BUCKET_ID,
+  MEMBERS_ID,
+  WORKSPACES_ID,
+} from "@/config";
+import { MemberRole } from "@/features/members/types";
 import { createWorkspaceSchema } from "@/features/workspaces/schema";
 import { sessionMiddleware } from "@/lib/session-middleware";
 import { zValidator } from "@hono/zod-validator";
@@ -54,6 +60,12 @@ const app = new Hono()
           imageUrl: uploadedImageUrl,
         },
       );
+
+      await databases.createDocument(DATABASE_ID, MEMBERS_ID, ID.unique(), {
+        userId: user.$id,
+        workspaceId: workspace.$id,
+        role: MemberRole.ADMIN,
+      });
 
       return c.json({ data: workspace });
     },
