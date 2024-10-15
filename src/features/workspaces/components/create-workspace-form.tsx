@@ -52,7 +52,7 @@ const CreateWorkspaceForm = ({ onCancel }: Props) => {
       image: values.image instanceof File ? values.image : "",
     };
 
-    mutate(finalValues, { onSuccess: () => form.reset() });
+    mutate(finalValues, { onSettled: () => form.reset() });
   };
 
   return (
