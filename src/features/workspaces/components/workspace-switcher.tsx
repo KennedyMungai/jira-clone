@@ -16,7 +16,15 @@ const WorkspaceSwitcher = () => {
   const { data: workspaces, isPending } = useGetWorkspaces();
 
   if (isPending) {
-    return <Skeleton className="size-full" />;
+    return (
+      <div className="flex flex-col gap-y-2">
+        <div className="flex items-center justify-between">
+          <p className="text-xs uppercase text-neutral-500">Workspaces</p>
+          <RiAddCircleFill className="size-5 cursor-pointer text-neutral-500 transition hover:opacity-75" />
+        </div>
+        <Skeleton className="h-10 w-full" />
+      </div>
+    );
   }
 
   return (
