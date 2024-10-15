@@ -2,6 +2,7 @@ import { client } from "@/lib/hc";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { InferRequestType, InferResponseType } from "hono";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 type ResponseType = InferResponseType<typeof client.api.auth.login.$post>;
 type RequestType = InferRequestType<typeof client.api.auth.login.$post>["json"];
@@ -19,7 +20,9 @@ export const useLogin = () => {
     onSuccess: () => {
       router.refresh();
       queryClient.invalidateQueries({ queryKey: ["current-user"] });
+      toast.success("Logged in");
     },
+    onError: () => toast.error("Failed to log in"),
   });
 
   return mutation;
