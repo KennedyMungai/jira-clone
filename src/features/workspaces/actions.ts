@@ -12,7 +12,7 @@ export const getWorkspaces = async () => {
     const session = await cookies().get(AUTH_COOKIE);
 
     if (!session) {
-      return { data: { documents: [], total: 0 } };
+      return  { documents: [], total: 0 } ;
     }
 
     client.setSession(session.value);
@@ -26,7 +26,7 @@ export const getWorkspaces = async () => {
     ]);
 
     if (members.total === 0) {
-      return { data: { documents: [], total: 0 } };
+      return { documents: [], total: 0 } ;
     }
 
     const workspaceIds = members.documents.map((member) => member.workspaceId);
@@ -39,6 +39,6 @@ export const getWorkspaces = async () => {
 
     return workspaces;
   } catch {
-      return { data: { documents: [], total: 0 } };
+      return { documents: [], total: 0 };
   }
 };
