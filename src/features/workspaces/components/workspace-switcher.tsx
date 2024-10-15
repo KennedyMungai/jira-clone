@@ -10,10 +10,14 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { useGetWorkspaces } from "@/features/workspaces/api/use-get-workspaces";
 import WorkspaceAvatar from "@/features/workspaces/components/workspace-avatar";
+import { useRouter } from "next/navigation";
 import { RiAddCircleFill } from "react-icons/ri";
 
 const WorkspaceSwitcher = () => {
+  const router = useRouter();
   const { data: workspaces, isPending } = useGetWorkspaces();
+
+  const onSelect = (id: string) => router.push(`/workspaces/${id}`);
 
   if (isPending) {
     return (
@@ -33,7 +37,7 @@ const WorkspaceSwitcher = () => {
         <p className="text-xs uppercase text-neutral-500">Workspaces</p>
         <RiAddCircleFill className="size-5 cursor-pointer text-neutral-500 transition hover:opacity-75" />
       </div>
-      <Select>
+      <Select onValueChange={onSelect}>
         <SelectTrigger className="w-full bg-neutral-200 p-1 font-medium">
           <SelectValue placeholder="No workspace selected" />
         </SelectTrigger>
