@@ -54,6 +54,7 @@ const CreateWorkspaceForm = ({ onCancel }: Props) => {
 
     mutate(finalValues, {
       onSuccess: () => {
+        onCancel();
         // TODO: Redirect to the newly created workspace,
       },
       onSettled: () => {
