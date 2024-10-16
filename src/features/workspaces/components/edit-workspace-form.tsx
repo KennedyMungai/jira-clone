@@ -82,7 +82,7 @@ const EditWorkspaceForm = ({ onCancel, initialValues }: Props) => {
         <Button
           size="icon"
           variant="ghost"
-          onClick={onCancel}
+          onClick={onCancel ? onCancel : () => router.back()}
           className="size-10"
         >
           <ArrowLeftIcon className="size-5" />
