@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useDeleteWorkspace } from "@/features/workspaces/api/use-delete-workspace";
+import { useResetInviteCode } from "@/features/workspaces/api/use-reset-invite-code";
 import { useUpdateWorkspace } from "@/features/workspaces/api/use-update-workspace";
 import {
   createWorkspaceSchema,
@@ -41,6 +42,8 @@ const EditWorkspaceForm = ({ onCancel, initialValues }: Props) => {
     useUpdateWorkspace();
   const { mutate: deleteWorkspace, isPending: isDeletingWorkspace } =
     useDeleteWorkspace();
+  const { mutate: resetInviteCode, isPending: isResettingInviteCode } =
+    useResetInviteCode();
 
   const router = useRouter();
 
@@ -49,6 +52,12 @@ const EditWorkspaceForm = ({ onCancel, initialValues }: Props) => {
   const [DeleteDialog, confirmDelete] = useConfirm(
     "Delete Workspace",
     "This action cannot be undone",
+    "destructive",
+  );
+
+  const [ResetDialog, confirmReset] = useConfirm(
+    "Reset Invite Link",
+    "This will invalidate the current invite link",
     "destructive",
   );
 
@@ -79,24 +88,27 @@ const EditWorkspaceForm = ({ onCancel, initialValues }: Props) => {
     );
   };
 
+  const handleReset = async () => {
+    const ok = await confirmReset();
+
+    if (!ok) return;
+
+    resetInviteCode(
+      { workspaceId: initialValues.$id },
+      { onSuccess: () => toast.success("Invite link has been reset") },
+    );
+  };
+
   const onSubmit = (values: z.infer<typeof createWorkspaceSchema>) => {
     const finalValues = {
       ...values,
       image: values.image instanceof File ? values.image : undefined,
     };
 
-    updateWorkspace(
-      {
-        form: finalValues,
-        param: { workspaceId: initialValues.$id },
-      },
-      {
-        onSuccess: ({ data }) => router.push(`/workspaces/${data.$id}`),
-        onSettled: () => {
-          form.reset();
-        },
-      },
-    );
+    updateWorkspace({
+      form: finalValues,
+      param: { workspaceId: initialValues.$id },
+    });
   };
 
   const fullInviteLink = `${window.location.origin}/workspaces/${initialValues.$id}/join/${initialValues.inviteCode}`;
@@ -276,7 +288,7 @@ const EditWorkspaceForm = ({ onCancel, initialValues }: Props) => {
               size="sm"
               type="button"
               disabled={isUpdatingWorkspace || isDeletingWorkspace}
-              onClick={() => {}}
+              onClick={handleReset}
             >
               Reset Invite link
             </Button>
@@ -306,6 +318,7 @@ const EditWorkspaceForm = ({ onCancel, initialValues }: Props) => {
         </CardContent>
       </Card>
       <DeleteDialog />
+      <ResetDialog />
     </div>
   );
 };
