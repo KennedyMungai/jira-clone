@@ -13,6 +13,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useDeleteWorkspace } from "@/features/workspaces/api/use-delete-workspace";
 import { useUpdateWorkspace } from "@/features/workspaces/api/use-update-workspace";
 import {
   createWorkspaceSchema,
@@ -36,6 +37,8 @@ type Props = {
 
 const EditWorkspaceForm = ({ onCancel, initialValues }: Props) => {
   const { mutate, isPending } = useUpdateWorkspace();
+  const { mutate: deleteWorkspace, isPending: isDeletingWorkspace } =
+    useDeleteWorkspace();
 
   const router = useRouter();
 
@@ -68,7 +71,10 @@ const EditWorkspaceForm = ({ onCancel, initialValues }: Props) => {
 
     if (!ok) return;
 
-    console.log("Deleting...");
+    deleteWorkspace(
+      { param: { workspaceId: initialValues.$id } },
+      { onSuccess: () => router.push("/") },
+    );
   };
 
   const onSubmit = (values: z.infer<typeof createWorkspaceSchema>) => {
@@ -126,7 +132,7 @@ const EditWorkspaceForm = ({ onCancel, initialValues }: Props) => {
                         <Input
                           {...field}
                           placeholder="Enter workspace name"
-                          disabled={isPending}
+                          disabled={isPending || isDeletingWorkspace}
                         />
                       </FormControl>
                       <FormMessage />
@@ -175,7 +181,7 @@ const EditWorkspaceForm = ({ onCancel, initialValues }: Props) => {
                           {field.value ? (
                             <Button
                               type="button"
-                              disabled={isPending}
+                              disabled={isPending || isDeletingWorkspace}
                               variant={"destructive"}
                               size="xs"
                               className="mt-2 w-fit"
@@ -192,7 +198,7 @@ const EditWorkspaceForm = ({ onCancel, initialValues }: Props) => {
                           ) : (
                             <Button
                               type="button"
-                              disabled={isPending}
+                              disabled={isPending || isDeletingWorkspace}
                               variant={"tertiary"}
                               size="xs"
                               className="mt-2 w-fit"
@@ -214,12 +220,16 @@ const EditWorkspaceForm = ({ onCancel, initialValues }: Props) => {
                   variant="secondary"
                   size="lg"
                   onClick={onCancel}
-                  disabled={isPending}
+                  disabled={isPending || isDeletingWorkspace}
                   className={cn(!onCancel && "invisible")}
                 >
                   Cancel
                 </Button>
-                <Button type="submit" size="lg" disabled={isPending}>
+                <Button
+                  type="submit"
+                  size="lg"
+                  disabled={isPending || isDeletingWorkspace}
+                >
                   Save Changes
                 </Button>
               </div>
@@ -240,7 +250,7 @@ const EditWorkspaceForm = ({ onCancel, initialValues }: Props) => {
               className="ml-auto mt-6 w-fit"
               size="sm"
               type="button"
-              disabled={isPending}
+              disabled={isPending || isDeletingWorkspace}
               onClick={handleDelete}
             >
               Delete Workspace
