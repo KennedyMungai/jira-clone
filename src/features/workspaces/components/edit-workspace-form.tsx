@@ -21,7 +21,7 @@ import {
 import { Workspace } from "@/features/workspaces/types";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ImageIcon } from "lucide-react";
+import { ArrowLeftIcon, ImageIcon } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useRef } from "react";
@@ -78,7 +78,15 @@ const EditWorkspaceForm = ({ onCancel, initialValues }: Props) => {
 
   return (
     <Card className="size-full border-none shadow-none">
-      <CardHeader className="flex p-7">
+      <CardHeader className="flex flex-row items-center gap-x-4 space-y-0 p-7">
+        <Button
+          size="icon"
+          variant="ghost"
+          onClick={() => router.back()}
+          className="size-10"
+        >
+          <ArrowLeftIcon className="size-5" />
+        </Button>
         <CardTitle className="text-xl font-bold">
           {initialValues.name}
         </CardTitle>
