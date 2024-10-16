@@ -82,7 +82,7 @@ const EditWorkspaceForm = ({ onCancel, initialValues }: Props) => {
         <Button
           size="icon"
           variant="ghost"
-          onClick={() => router.back()}
+          onClick={onCancel}
           className="size-10"
         >
           <ArrowLeftIcon className="size-5" />
@@ -185,7 +185,7 @@ const EditWorkspaceForm = ({ onCancel, initialValues }: Props) => {
                 Cancel
               </Button>
               <Button type="submit" size="lg" disabled={isPending}>
-                Update Workspace
+                Save Changes
               </Button>
             </div>
           </form>
