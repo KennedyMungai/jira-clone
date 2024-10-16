@@ -1,6 +1,7 @@
 import { DATABASE_ID, MEMBERS_ID, WORKSPACES_ID } from "@/config";
 import { AUTH_COOKIE } from "@/features/auth/constants";
 import { getMember } from "@/features/members/utils";
+import { Workspace } from "@/features/workspaces/types";
 import { cookies } from "next/headers";
 import { Account, Client, Databases, Query } from "node-appwrite";
 
@@ -72,7 +73,7 @@ export const getWorkspace = async ({ workspaceId }: GetWorkspaceProps) => {
 
     if (!member) return null;
 
-    const workspace = await databases.getDocument(
+    const workspace = await databases.getDocument<Workspace>(
       DATABASE_ID,
       WORKSPACES_ID,
       workspaceId,
