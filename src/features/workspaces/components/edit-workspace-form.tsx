@@ -54,7 +54,7 @@ const EditWorkspaceForm = ({ onCancel, initialValues }: Props) => {
     resolver: zodResolver(updateWorkspaceSchema),
     defaultValues: {
       ...initialValues,
-      image: initialValues.imageUrl ?? "",
+      image: initialValues.imageUrl ?? "/no-image.png",
     },
   });
 
