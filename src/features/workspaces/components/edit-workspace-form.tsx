@@ -23,11 +23,12 @@ import { Workspace } from "@/features/workspaces/types";
 import useConfirm from "@/hooks/use-confirm";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowLeftIcon, ImageIcon } from "lucide-react";
+import { ArrowLeftIcon, CopyIcon, ImageIcon } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useRef } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 
 type Props = {
@@ -97,6 +98,8 @@ const EditWorkspaceForm = ({ onCancel, initialValues }: Props) => {
       },
     );
   };
+
+  const fullInviteLink = `${window.location.origin}/workspaces/${initialValues.$id}/join/${initialValues.inviteCode}`;
 
   return (
     <div className="flex flex-col gap-y-4">
@@ -247,11 +250,48 @@ const EditWorkspaceForm = ({ onCancel, initialValues }: Props) => {
       <Card className="size-full border-none shadow-none">
         <CardContent className="p-7">
           <div className="flex flex-col">
+            <h3 className="font-bold">Invite Members</h3>
+            <p className="text-sm text-muted-foreground">
+              Use the invite link to add members to your workspace
+            </p>
+            <div className="mt-4">
+              <div className="relative flex items-center gap-x-2">
+                <Input disabled value={fullInviteLink} className="pr-10" />
+                <CopyIcon
+                  className="absolute right-2 size-5 cursor-pointer text-neutral-800"
+                  onClick={() =>
+                    navigator.clipboard
+                      .writeText(fullInviteLink)
+                      .then(() =>
+                        toast.success("Invite link copied successfully"),
+                      )
+                  }
+                />
+              </div>
+            </div>
+            <DottedSeparator className="py-7" />
+            <Button
+              variant={"destructive"}
+              className="ml-auto mt-6 w-fit"
+              size="sm"
+              type="button"
+              disabled={isUpdatingWorkspace || isDeletingWorkspace}
+              onClick={() => {}}
+            >
+              Reset Invite link
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+      <Card className="size-full border-none shadow-none">
+        <CardContent className="p-7">
+          <div className="flex flex-col">
             <h3 className="font-bold">Danger Zone</h3>
             <p className="text-sm text-muted-foreground">
               Deleting a workspace is irreversible and will remove all
               associated data
             </p>
+            <DottedSeparator className="py-7" />
             <Button
               variant={"destructive"}
               className="ml-auto mt-6 w-fit"
