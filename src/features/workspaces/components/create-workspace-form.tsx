@@ -160,7 +160,7 @@ const CreateWorkspaceForm = ({ onCancel }: Props) => {
                 size="lg"
                 onClick={onCancel}
                 disabled={isPending}
-                className={cn(onCancel ? "block" : "invisible")}
+                className={cn(onCancel && "invisible")}
               >
                 Cancel
               </Button>
