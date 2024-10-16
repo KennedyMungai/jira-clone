@@ -73,7 +73,7 @@ const EditWorkspaceForm = ({ onCancel, initialValues }: Props) => {
 
     deleteWorkspace(
       { param: { workspaceId: initialValues.$id } },
-      { onSuccess: () => router.push("/") },
+      { onSuccess: () => (window.location.href = "/") },
     );
   };
 
