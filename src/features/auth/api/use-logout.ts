@@ -4,7 +4,7 @@ import { InferRequestType, InferResponseType } from "hono";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
-type ResponseType = InferResponseType<typeof client.api.auth.logout.$post>;
+type ResponseType = InferResponseType<typeof client.api.auth.logout.$post, 200>;
 type RequestType = InferRequestType<typeof client.api.auth.logout.$post>;
 
 export const useLogout = () => {
