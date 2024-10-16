@@ -9,7 +9,7 @@ type Props = {
 
 const StandaloneLayout = ({ children }: Props) => {
   return (
-    <div className="size-full bg-neutral-100">
+    <div className="size-full overflow-y-auto bg-neutral-100">
       <div className="mx-auto max-w-screen-2xl p-4">
         <nav className="flex h-[73px] items-center justify-between">
           <Link href="/">
