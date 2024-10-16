@@ -177,7 +177,7 @@ const EditWorkspaceForm = ({ onCancel, initialValues }: Props) => {
                 Cancel
               </Button>
               <Button type="submit" size="lg" disabled={isPending}>
-                Create Workspace
+                Update Workspace
               </Button>
             </div>
           </form>
