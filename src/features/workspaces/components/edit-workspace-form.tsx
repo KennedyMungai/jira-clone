@@ -19,6 +19,7 @@ import {
   updateWorkspaceSchema,
 } from "@/features/workspaces/schema";
 import { Workspace } from "@/features/workspaces/types";
+import useConfirm from "@/hooks/use-confirm";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowLeftIcon, ImageIcon } from "lucide-react";
@@ -40,6 +41,12 @@ const EditWorkspaceForm = ({ onCancel, initialValues }: Props) => {
 
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const [DeleteDialog, confirmDelete] = useConfirm(
+    "Delete Workspace",
+    "This action cannot be undone",
+    "destructive",
+  );
+
   const form = useForm<z.infer<typeof updateWorkspaceSchema>>({
     resolver: zodResolver(updateWorkspaceSchema),
     defaultValues: {
@@ -54,6 +61,14 @@ const EditWorkspaceForm = ({ onCancel, initialValues }: Props) => {
     if (file) {
       form.setValue("image", file);
     }
+  };
+
+  const handleDelete = async () => {
+    const ok = await confirmDelete();
+
+    if (!ok) return;
+
+    console.log("Deleting...");
   };
 
   const onSubmit = (values: z.infer<typeof createWorkspaceSchema>) => {
@@ -226,13 +241,14 @@ const EditWorkspaceForm = ({ onCancel, initialValues }: Props) => {
               size="sm"
               type="button"
               disabled={isPending}
-              onClick={() => {}}
+              onClick={handleDelete}
             >
               Delete Workspace
             </Button>
           </div>
         </CardContent>
       </Card>
+      <DeleteDialog />
     </div>
   );
 };
