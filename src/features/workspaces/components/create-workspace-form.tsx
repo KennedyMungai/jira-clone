@@ -18,6 +18,7 @@ import { createWorkspaceSchema } from "@/features/workspaces/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ImageIcon } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { ChangeEvent, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -28,6 +29,8 @@ type Props = {
 
 const CreateWorkspaceForm = ({ onCancel }: Props) => {
   const { mutate, isPending } = useCreateWorkspace();
+
+  const router = useRouter();
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -53,9 +56,10 @@ const CreateWorkspaceForm = ({ onCancel }: Props) => {
     };
 
     mutate(finalValues, {
-      onSuccess: () => {
+      onSuccess: ({ data }) => {
         onCancel?.();
-        // TODO: Redirect to the newly created workspace,
+
+        router.push(`/workspaces/${data.id}`);
       },
       onSettled: () => {
         form.reset();
