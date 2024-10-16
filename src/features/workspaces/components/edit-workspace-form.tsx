@@ -287,7 +287,11 @@ const EditWorkspaceForm = ({ onCancel, initialValues }: Props) => {
               className="ml-auto mt-6 w-fit"
               size="sm"
               type="button"
-              disabled={isUpdatingWorkspace || isDeletingWorkspace}
+              disabled={
+                isUpdatingWorkspace ||
+                isDeletingWorkspace ||
+                isResettingInviteCode
+              }
               onClick={handleReset}
             >
               Reset Invite link
