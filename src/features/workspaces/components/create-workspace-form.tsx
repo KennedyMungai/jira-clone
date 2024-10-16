@@ -153,15 +153,17 @@ const CreateWorkspaceForm = ({ onCancel }: Props) => {
             </div>
             <DottedSeparator className="py-7" />
             <div className="flex flex-col items-center gap-2 lg:flex-row lg:justify-between">
-              <Button
-                type="button"
-                variant="secondary"
-                size="lg"
-                onClick={onCancel}
-                disabled={isPending}
-              >
-                Cancel
-              </Button>
+              {onCancel && (
+                <Button
+                  type="button"
+                  variant="secondary"
+                  size="lg"
+                  onClick={onCancel}
+                  disabled={isPending}
+                >
+                  Cancel
+                </Button>
+              )}
               <Button type="submit" size="lg" disabled={isPending}>
                 Create Workspace
               </Button>
