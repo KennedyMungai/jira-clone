@@ -95,7 +95,9 @@ const EditWorkspaceForm = ({ onCancel, initialValues }: Props) => {
 
     resetInviteCode(
       { workspaceId: initialValues.$id },
-      { onSuccess: () => toast.success("Invite link has been reset") },
+      {
+        onSuccess: () => router.refresh(),
+      },
     );
   };
 
