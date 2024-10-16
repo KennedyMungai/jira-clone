@@ -15,6 +15,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useCreateWorkspace } from "@/features/workspaces/api/use-create-workspace";
 import { createWorkspaceSchema } from "@/features/workspaces/schema";
+import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ImageIcon } from "lucide-react";
 import Image from "next/image";
@@ -153,17 +154,16 @@ const CreateWorkspaceForm = ({ onCancel }: Props) => {
             </div>
             <DottedSeparator className="py-7" />
             <div className="flex flex-col items-center gap-2 lg:flex-row lg:justify-between">
-              {onCancel && (
-                <Button
-                  type="button"
-                  variant="secondary"
-                  size="lg"
-                  onClick={onCancel}
-                  disabled={isPending}
-                >
-                  Cancel
-                </Button>
-              )}
+              <Button
+                type="button"
+                variant="secondary"
+                size="lg"
+                onClick={onCancel}
+                disabled={isPending}
+                className={cn(onCancel ? "block" : "hidden")}
+              >
+                Cancel
+              </Button>
               <Button type="submit" size="lg" disabled={isPending}>
                 Create Workspace
               </Button>
