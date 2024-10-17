@@ -10,9 +10,7 @@ type Props = {
   };
 };
 
-const WorkspaceJoinPage = async ({
-  params: { inviteCode, workspaceId },
-}: Props) => {
+const WorkspaceJoinPage = async ({ params: { workspaceId } }: Props) => {
   const user = await getCurrent();
 
   if (!user) redirect("/sign-in");
