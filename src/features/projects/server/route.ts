@@ -39,7 +39,7 @@ const app = new Hono()
     },
   )
   .post(
-    "/:workspaceId",
+    "/",
     zValidator("form", createProjectSchema),
     sessionMiddleware,
     async (c) => {
