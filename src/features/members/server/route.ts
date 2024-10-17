@@ -57,7 +57,7 @@ const app = new Hono()
     "/:memberId",
     sessionMiddleware,
     zValidator("param", z.object({ memberId: z.string() })),
-    zValidator("json", z.object({ role: z.enum([MemberRole.ADMIN]) })),
+    zValidator("json", z.object({ role: z.nativeEnum(MemberRole) })),
     async (c) => {
       const { memberId } = c.req.valid("param");
       const { role } = c.req.valid("json");
