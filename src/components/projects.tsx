@@ -1,6 +1,7 @@
 "use client";
 
 import { useGetProjects } from "@/features/projects/api/use-get-projects";
+import { useCreateProjectModal } from "@/features/projects/hooks/use-create-project-modal";
 import { useProjectId } from "@/features/projects/hooks/use-project-id";
 import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 import { cn } from "@/lib/utils";
@@ -14,6 +15,8 @@ const Projects = () => {
   const workspaceId = useWorkspaceId();
   const projectId = useProjectId();
 
+  const { open } = useCreateProjectModal();
+
   const { data: projects, isPending: isFetchingProjects } = useGetProjects({
     workspaceId,
   });
@@ -24,7 +27,7 @@ const Projects = () => {
         <p className="text-xs uppercase text-neutral-500">Projects</p>
         <RiAddCircleFill
           className="size-5 cursor-pointer text-neutral-500 transition hover:opacity-75"
-          onClick={() => console.log("Workspaces clicked!")}
+          onClick={open}
         />
       </div>
       {projects?.documents.map((project) => {
