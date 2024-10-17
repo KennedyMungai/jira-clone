@@ -21,15 +21,15 @@ export const useUpdateMember = () => {
         json,
       });
 
-      if (!response.ok) throw new Error("Failed to delete member");
+      if (!response.ok) throw new Error("Failed to update member");
 
       return await response.json();
     },
     onSuccess: () => {
-      toast.success("Member deleted successfully");
+      toast.success("Member updated successfully");
       queryClient.invalidateQueries({ queryKey: ["members"] });
     },
-    onError: () => toast.error("Failed to delete member"),
+    onError: () => toast.error("Failed to updated member"),
   });
 
   return mutation;
