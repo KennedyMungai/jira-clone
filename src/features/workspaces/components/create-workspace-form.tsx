@@ -57,7 +57,10 @@ const CreateWorkspaceForm = ({ onCancel }: Props) => {
     };
 
     mutate(finalValues, {
-      onSuccess: ({ data }) => router.push(`/workspaces/${data.$id}`),
+      onSuccess: ({ data }) => {
+        form.reset();
+        router.push(`/workspaces/${data.$id}`);
+      },
       onSettled: () => {
         form.reset();
       },
