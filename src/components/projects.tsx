@@ -14,7 +14,6 @@ const Projects = () => {
   const pathname = usePathname();
 
   const workspaceId = useWorkspaceId();
-  const projectId = useProjectId();
 
   const { open } = useCreateProjectModal();
 
