@@ -36,7 +36,7 @@ const CreateProjectForm = ({ onCancel }: Props) => {
   const workspaceId = useWorkspaceId();
 
   const form = useForm<z.infer<typeof createProjectSchema>>({
-    resolver: zodResolver(createProjectSchema),
+    resolver: zodResolver(createProjectSchema.omit({ workspaceId: true })),
     defaultValues: {
       name: "",
     },
