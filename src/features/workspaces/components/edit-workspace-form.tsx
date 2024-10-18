@@ -93,12 +93,7 @@ const EditWorkspaceForm = ({ onCancel, initialValues }: Props) => {
 
     if (!ok) return;
 
-    resetInviteCode(
-      { workspaceId: initialValues.$id },
-      {
-        onSuccess: () => router.refresh(),
-      },
-    );
+    resetInviteCode({ workspaceId: initialValues.$id });
   };
 
   const onSubmit = (values: z.infer<typeof createWorkspaceSchema>) => {
@@ -107,10 +102,15 @@ const EditWorkspaceForm = ({ onCancel, initialValues }: Props) => {
       image: values.image instanceof File ? values.image : undefined,
     };
 
-    updateWorkspace({
-      form: finalValues,
-      param: { workspaceId: initialValues.$id },
-    });
+    updateWorkspace(
+      {
+        form: finalValues,
+        param: { workspaceId: initialValues.$id },
+      },
+      {
+        onSuccess: () => form.reset(),
+      },
+    );
   };
 
   const fullInviteLink = `${window.location.origin}/workspaces/${initialValues.$id}/join/${initialValues.inviteCode}`;
