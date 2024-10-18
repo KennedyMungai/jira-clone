@@ -10,13 +10,13 @@ import {
   createWorkspaceSchema,
   updateWorkspaceSchema,
 } from "@/features/workspaces/schema";
+import { Workspace } from "@/features/workspaces/types";
 import { sessionMiddleware } from "@/lib/session-middleware";
 import { generateInviteCode } from "@/lib/utils";
 import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 import { ID, Query } from "node-appwrite";
 import { z } from "zod";
-import { Workspace } from "@/features/workspaces/types";
 
 const app = new Hono()
   .get("/", sessionMiddleware, async (c) => {
