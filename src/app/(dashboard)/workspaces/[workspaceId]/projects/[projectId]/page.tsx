@@ -1,4 +1,5 @@
 import { getCurrent } from "@/features/auth/queries";
+import { getProject } from "@/features/projects/queries";
 import { redirect } from "next/navigation";
 
 type Props = {
@@ -13,12 +14,11 @@ const ProjectPage = async ({ params: { projectId, workspaceId } }: Props) => {
 
   if (!user) redirect("/sign-in");
 
-  return (
-    <div>
-      <p>Project Id: {projectId}</p>
-      <p>Workspace Id: {workspaceId}</p>
-    </div>
-  );
+  const initialValues = await getProject({
+    projectId,
+  });
+
+  return <div>{JSON.stringify(initialValues)}</div>;
 };
 
 export default ProjectPage;
