@@ -1,5 +1,5 @@
-const CreateTaskModalWrapper = () => {
+const CreateTaskFormWrapper = () => {
   return <div>CreateTaskModalWrapper</div>;
 };
 
-export default CreateTaskModalWrapper;
+export default CreateTaskFormWrapper;
