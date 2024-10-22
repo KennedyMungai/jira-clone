@@ -2,7 +2,7 @@ import { DATABASE_ID, MEMBERS_ID, PROJECTS_ID, TASKS_ID } from "@/config";
 import { Project } from "@/features/members/types";
 import { getMember } from "@/features/members/utils";
 import { createTaskSchema } from "@/features/tasks/schemas";
-import { TaskStatus } from "@/features/tasks/types";
+import { Task, TaskStatus } from "@/features/tasks/types";
 import { createAdminClient } from "@/lib/appwrite";
 import { sessionMiddleware } from "@/lib/session-middleware";
 import { zValidator } from "@hono/zod-validator";
@@ -67,7 +67,11 @@ const app = new Hono()
         query.push(Query.equal("search", search));
       }
 
-      const tasks = await databases.listDocuments(DATABASE_ID, TASKS_ID, query);
+      const tasks = await databases.listDocuments<Task>(
+        DATABASE_ID,
+        TASKS_ID,
+        query,
+      );
 
       const projectIds = tasks.documents.map((task) => task.projectId);
       const assigneeIds = tasks.documents.map((task) => task.assigneeId);
