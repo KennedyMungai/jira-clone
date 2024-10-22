@@ -57,8 +57,6 @@ const CreateTaskForm = ({ onCancel, memberOptions, projectOptions }: Props) => {
         onSuccess: () => {
           form.reset();
 
-          // TODO: Redirect to new task
-
           onCancel?.();
         },
         onSettled: () => {
