@@ -19,7 +19,9 @@ const TaskDate = ({ value, className }: Props) => {
 
   return (
     <div className={textColor}>
-      <span className={cn("truncate", className)}>{format(value, "PPP")}</span>
+      <span className={cn("truncate text-sm font-semibold", className)}>
+        {format(value, "PPP")}
+      </span>
     </div>
   );
 };
