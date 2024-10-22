@@ -1,3 +1,6 @@
+import { getCurrent } from "@/features/auth/queries";
+import { redirect } from "next/navigation";
+
 type Props = {
   params: {
     workspaceId: string;
@@ -5,7 +8,13 @@ type Props = {
   };
 };
 
-const ProjectEditPage = ({ params: { workspaceId, projectId } }: Props) => {
+const ProjectEditPage = async ({
+  params: { workspaceId, projectId },
+}: Props) => {
+  const user = await getCurrent();
+
+  if (!user) redirect("/sign-in");
+
   return <div>ProjectEditPage</div>;
 };
 
