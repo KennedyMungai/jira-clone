@@ -8,6 +8,7 @@ import { useCreateTaskModal } from "@/features/tasks/hooks/use-create-task-modal
 import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 import { LoaderIcon, PlusIcon } from "lucide-react";
 import { useQueryState } from "nuqs";
+import DataFilters from "@/features/tasks/components/data-filters";
 
 const TaskViewSwitcher = () => {
   const [view, setView] = useQueryState("task-view", {
@@ -46,7 +47,7 @@ const TaskViewSwitcher = () => {
           </Button>
         </div>
         <DottedSeparator className="my-4" />
-        Data Filters
+        <DataFilters />
         <DottedSeparator className="my-4" />
         {isLoadingTasks ? (
           <div className="flex size-full h-[200px] flex-col items-center justify-center rounded-lg border">
