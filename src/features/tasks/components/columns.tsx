@@ -1,8 +1,8 @@
 "use client";
 
-import { ColumnDef } from "@tanstack/react-table";
-import { Task } from "@/features/tasks/types";
 import { Button } from "@/components/ui/button";
+import { Task } from "@/features/tasks/types";
+import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDownIcon } from "lucide-react";
 
 export const columns: ColumnDef<Task>[] = [
