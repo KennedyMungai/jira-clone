@@ -20,6 +20,7 @@ import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ImageIcon } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { ChangeEvent, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -30,6 +31,8 @@ type Props = {
 
 const CreateProjectForm = ({ onCancel }: Props) => {
   const { mutate, isPending } = useCreateProject();
+
+  const router = useRouter();
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -60,10 +63,10 @@ const CreateProjectForm = ({ onCancel }: Props) => {
     mutate(
       { form: finalValues },
       {
-        onSuccess: () => {
+        onSuccess: ({ data }) => {
           form.reset();
 
-          // TODO: Redirect to project screen
+          router.push(`/workspaces/${workspaceId}/projects/${data.$id}`);
         },
         onSettled: () => {
           form.reset();
