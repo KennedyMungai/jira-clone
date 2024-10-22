@@ -2,7 +2,8 @@ import { Button } from "@/components/ui/button";
 import { getCurrent } from "@/features/auth/queries";
 import ProjectAvatar from "@/features/projects/components/project-avatar";
 import { getProject } from "@/features/projects/queries";
-import { EditIcon, Link } from "lucide-react";
+import { EditIcon } from "lucide-react";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 
 type Props = {
