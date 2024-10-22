@@ -1,5 +1,6 @@
 import Navbar from "@/components/navbar";
 import Sidebar from "@/components/sidebar";
+import CreateTaskModal from "@/features/components/create-task-modal";
 import CreateProjectModal from "@/features/projects/components/create-project-modal";
 import CreateWorkspaceModal from "@/features/workspaces/components/create-workspace-modal";
 import { ReactNode } from "react";
@@ -13,6 +14,7 @@ const DashboardLayout = ({ children }: Props) => {
     <div className="h-full">
       <CreateWorkspaceModal />
       <CreateProjectModal />
+      <CreateTaskModal />
       <div className="flex size-full">
         <div className="fixed left-0 top-0 hidden h-full overflow-y-auto lg:block lg:w-[264px]">
           <Sidebar />
