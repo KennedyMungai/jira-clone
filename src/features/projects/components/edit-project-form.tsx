@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Project } from "@/features/members/types";
+import { useDeleteProject } from "@/features/projects/api/use-delete-project";
 import { useUpdateProject } from "@/features/projects/api/use-update-project";
 import { updateProjectSchema } from "@/features/projects/schemas";
 import useConfirm from "@/hooks/use-confirm";
@@ -34,15 +35,15 @@ type Props = {
 const EditProjectForm = ({ onCancel, initialValues }: Props) => {
   const { mutate: updateProject, isPending: isUpdatingProject } =
     useUpdateProject();
-  // const { mutate: deleteWorkspace, isPending: isDeletingWorkspace } =
-  //   useDeleteProject();
+  const { mutate: deleteProject, isPending: isDeletingProject } =
+    useDeleteProject();
 
   const router = useRouter();
 
   const inputRef = useRef<HTMLInputElement>(null);
 
   const [DeleteDialog, confirmDelete] = useConfirm(
-    "Delete Workspace",
+    "Delete Project",
     "This action cannot be undone",
     "destructive",
   );
@@ -68,10 +69,13 @@ const EditProjectForm = ({ onCancel, initialValues }: Props) => {
 
     if (!ok) return;
 
-    // deleteWorkspace(
-    //   { param: { workspaceId: initialValues.$id } },
-    //   { onSuccess: () => (window.location.href = "/") },
-    // );
+    deleteProject(
+      { param: { projectId: initialValues.$id } },
+      {
+        onSuccess: () =>
+          (window.location.href = `/workspaces/${initialValues.$workspaceId}`),
+      },
+    );
   };
 
   const onSubmit = (values: z.infer<typeof updateProjectSchema>) => {
@@ -126,7 +130,7 @@ const EditProjectForm = ({ onCancel, initialValues }: Props) => {
                         <Input
                           {...field}
                           placeholder="Enter project name"
-                          disabled={isUpdatingProject}
+                          disabled={isUpdatingProject || isDeletingProject}
                         />
                       </FormControl>
                       <FormMessage />
@@ -169,13 +173,13 @@ const EditProjectForm = ({ onCancel, initialValues }: Props) => {
                             className="hidden"
                             accept=".jpg, .jpeg, .png, .svg, .gif"
                             ref={inputRef}
-                            disabled={isUpdatingProject}
+                            disabled={isUpdatingProject || isDeletingProject}
                             onChange={handleImageChange}
                           />
                           {field.value ? (
                             <Button
                               type="button"
-                              disabled={isUpdatingProject}
+                              disabled={isUpdatingProject || isDeletingProject}
                               variant={"destructive"}
                               size="xs"
                               className="mt-2 w-fit"
@@ -192,7 +196,7 @@ const EditProjectForm = ({ onCancel, initialValues }: Props) => {
                           ) : (
                             <Button
                               type="button"
-                              disabled={isUpdatingProject}
+                              disabled={isUpdatingProject || isDeletingProject}
                               variant={"tertiary"}
                               size="xs"
                               className="mt-2 w-fit"
@@ -214,12 +218,16 @@ const EditProjectForm = ({ onCancel, initialValues }: Props) => {
                   variant="secondary"
                   size="lg"
                   onClick={onCancel}
-                  disabled={isUpdatingProject}
+                  disabled={isUpdatingProject || isDeletingProject}
                   className={cn(!onCancel && "invisible")}
                 >
                   Cancel
                 </Button>
-                <Button type="submit" size="lg" disabled={isUpdatingProject}>
+                <Button
+                  type="submit"
+                  size="lg"
+                  disabled={isUpdatingProject || isDeletingProject}
+                >
                   Save Changes
                 </Button>
               </div>
@@ -241,7 +249,7 @@ const EditProjectForm = ({ onCancel, initialValues }: Props) => {
               className="ml-auto mt-6 w-fit"
               size="sm"
               type="button"
-              disabled={isUpdatingProject}
+              disabled={isUpdatingProject || isDeletingProject}
               onClick={handleDelete}
             >
               Delete Project
