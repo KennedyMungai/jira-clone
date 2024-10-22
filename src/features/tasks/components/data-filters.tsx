@@ -1,5 +1,6 @@
 "use client";
 
+import DatePicker from "@/components/ui/date-picker";
 import {
   Select,
   SelectContent,
@@ -117,6 +118,14 @@ const DataFilters = ({ hideProjectFilter }: Props) => {
           ))}
         </SelectContent>
       </Select>
+      <DatePicker
+        placeholder="Due Date"
+        className="h-8 w-full lg:w-auto"
+        value={dueDate ? new Date(dueDate) : undefined}
+        onChange={(date) =>
+          setFilters({ dueDate: date ? date.toISOString() : null })
+        }
+      />
     </div>
   );
 };
