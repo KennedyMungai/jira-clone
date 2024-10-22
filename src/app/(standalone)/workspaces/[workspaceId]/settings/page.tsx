@@ -16,8 +16,6 @@ const WorkspaceSettingsPage = async ({ params: { workspaceId } }: Props) => {
 
   const initialValues = await getWorkspace({ workspaceId });
 
-  if (!initialValues) redirect("/workspaces");
-
   return (
     <div>
       <EditWorkspaceForm initialValues={initialValues} />
