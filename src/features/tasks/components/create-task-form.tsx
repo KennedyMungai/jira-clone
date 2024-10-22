@@ -18,7 +18,6 @@ import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import { useRef } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -86,6 +85,21 @@ const CreateTaskForm = ({ onCancel, memberOptions, projectOptions }: Props) => {
                         placeholder="Enter task name"
                         disabled={isPending}
                       />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="dueDate"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-lg font-semibold text-neutral-500">
+                      Due Date
+                    </FormLabel>
+                    <FormControl>
+                      {/* TODO: Add a date picker component */}
                     </FormControl>
                     <FormMessage />
                   </FormItem>
