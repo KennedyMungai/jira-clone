@@ -16,10 +16,7 @@ import { Input } from "@/components/ui/input";
 import { useDeleteWorkspace } from "@/features/workspaces/api/use-delete-workspace";
 import { useResetInviteCode } from "@/features/workspaces/api/use-reset-invite-code";
 import { useUpdateWorkspace } from "@/features/workspaces/api/use-update-workspace";
-import {
-  createWorkspaceSchema,
-  updateWorkspaceSchema,
-} from "@/features/workspaces/schema";
+import { updateWorkspaceSchema } from "@/features/workspaces/schema";
 import { Workspace } from "@/features/workspaces/types";
 import useConfirm from "@/hooks/use-confirm";
 import { cn } from "@/lib/utils";
@@ -96,7 +93,7 @@ const EditWorkspaceForm = ({ onCancel, initialValues }: Props) => {
     resetInviteCode({ workspaceId: initialValues.$id });
   };
 
-  const onSubmit = (values: z.infer<typeof createWorkspaceSchema>) => {
+  const onSubmit = (values: z.infer<typeof updateWorkspaceSchema>) => {
     const finalValues = {
       ...values,
       image: values.image instanceof File ? values.image : undefined,
