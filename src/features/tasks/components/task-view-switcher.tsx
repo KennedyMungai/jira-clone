@@ -6,7 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useGetTasks } from "@/features/tasks/api/use-get-tasks";
 import { useCreateTaskModal } from "@/features/tasks/hooks/use-create-task-modal";
 import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
-import { PlusIcon } from "lucide-react";
+import { LoaderIcon, PlusIcon } from "lucide-react";
 import { useQueryState } from "nuqs";
 
 const TaskViewSwitcher = () => {
@@ -48,17 +48,23 @@ const TaskViewSwitcher = () => {
         <DottedSeparator className="my-4" />
         Data Filters
         <DottedSeparator className="my-4" />
-        <>
-          <TabsContent value="table" className="mt-0">
-            {JSON.stringify(tasks)}
-          </TabsContent>
-          <TabsContent value="kanban" className="mt-0">
-            {JSON.stringify(tasks)}
-          </TabsContent>
-          <TabsContent value="calendar" className="mt-0">
-            {JSON.stringify(tasks)}
-          </TabsContent>
-        </>
+        {isLoadingTasks ? (
+          <div className="flex size-full h-[200px] flex-col items-center justify-center rounded-lg border">
+            <LoaderIcon className="size-5 animate-spin text-muted-foreground" />
+          </div>
+        ) : (
+          <>
+            <TabsContent value="table" className="mt-0">
+              {JSON.stringify(tasks)}
+            </TabsContent>
+            <TabsContent value="kanban" className="mt-0">
+              {JSON.stringify(tasks)}
+            </TabsContent>
+            <TabsContent value="calendar" className="mt-0">
+              {JSON.stringify(tasks)}
+            </TabsContent>
+          </>
+        )}
       </div>
     </Tabs>
   );
