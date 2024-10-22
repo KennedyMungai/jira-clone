@@ -1,8 +1,10 @@
 "use client";
 
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import TaskDate from "@/features/tasks/components/task-date";
 import { Task } from "@/features/tasks/types";
+import { snakeCaseToTitleCase } from "@/lib/utils";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDownIcon } from "lucide-react";
 
@@ -77,6 +79,22 @@ export const columns: ColumnDef<Task>[] = [
       const dueDate = row.original.dueDate;
 
       return <TaskDate value={dueDate} />;
+    },
+  },
+  {
+    accessorKey: "status",
+    header: ({ column }) => (
+      <Button
+        variant={"ghost"}
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        Status <ArrowUpDownIcon className="ml-2 size-4" />
+      </Button>
+    ),
+    cell: ({ row }) => {
+      const status = row.original.status;
+
+      return <Badge variant={status}>{snakeCaseToTitleCase(status)}</Badge>;
     },
   },
 ];
