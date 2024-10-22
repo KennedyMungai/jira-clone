@@ -4,13 +4,16 @@ import DottedSeparator from "@/components/dotted-separator";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useGetTasks } from "@/features/tasks/api/use-get-tasks";
+import DataFilters from "@/features/tasks/components/data-filters";
 import { useCreateTaskModal } from "@/features/tasks/hooks/use-create-task-modal";
+import { useTaskFilters } from "@/features/tasks/hooks/use-task-filters";
 import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 import { LoaderIcon, PlusIcon } from "lucide-react";
 import { useQueryState } from "nuqs";
-import DataFilters from "@/features/tasks/components/data-filters";
 
 const TaskViewSwitcher = () => {
+  const [{ assigneeId, dueDate, projectId, search, status }] = useTaskFilters();
+
   const [view, setView] = useQueryState("task-view", {
     defaultValue: "table",
   });
@@ -21,6 +24,11 @@ const TaskViewSwitcher = () => {
 
   const { data: tasks, isLoading: isLoadingTasks } = useGetTasks({
     workspaceId,
+    assigneeId,
+    dueDate,
+    projectId,
+    search,
+    status,
   });
 
   return (
