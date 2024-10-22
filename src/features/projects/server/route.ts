@@ -152,6 +152,38 @@ const app = new Hono()
 
       return c.json({ data: project });
     },
+  )
+  .delete(
+    "/:projectId",
+    zValidator("param", z.object({ projectId: z.string() })),
+    sessionMiddleware,
+    async (c) => {
+      const { projectId } = c.req.valid("param");
+      const databases = c.get("databases");
+      const user = c.get("user");
+
+      const existingProject = await databases.getDocument<Project>(
+        DATABASE_ID,
+        PROJECTS_ID,
+        projectId,
+      );
+
+      const member = await getMember({
+        databases,
+        workspaceId: existingProject.workspaceId,
+        userId: user.$id,
+      });
+
+      if (!member) {
+        return c.json({ error: "Unauthorized" }, 401);
+      }
+
+      // TODO: Delete tasks
+
+      await databases.deleteDocument(DATABASE_ID, PROJECTS_ID, projectId);
+
+      return c.json({ data: { $id: existingProject.$id } });
+    },
   );
 
 export default app;
