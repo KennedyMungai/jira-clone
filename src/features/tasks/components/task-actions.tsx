@@ -1,9 +1,13 @@
+"use client";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useDeleteTask } from "@/features/tasks/api/use-delete-task";
+import useConfirm from "@/hooks/use-confirm";
 import { ExternalLinkIcon, PencilIcon, TrashIcon } from "lucide-react";
 import { ReactNode } from "react";
 
@@ -14,6 +18,22 @@ type Props = {
 };
 
 const TaskActions = ({ id, projectId, children }: Props) => {
+  const { mutate: deleteTask, isPending: isDeletingTask } = useDeleteTask();
+
+  const [ConfirmDialog, confirm] = useConfirm(
+    "Delete Task",
+    "This action cannot be undone",
+    "destructive",
+  );
+
+  const onDelete = async () => {
+    const ok = await confirm();
+
+    if (!ok) return;
+
+    deleteTask({ param: { taskId: id } });
+  };
+
   return (
     <div className="flex justify-end">
       <DropdownMenu modal={false}>
@@ -21,7 +41,7 @@ const TaskActions = ({ id, projectId, children }: Props) => {
         <DropdownMenuContent align="end" className="w-48">
           <DropdownMenuItem
             onClick={() => {}}
-            disabled={false}
+            disabled={isDeletingTask}
             className="p-[10px] font-medium"
           >
             <ExternalLinkIcon className="mr-2 size-4 stroke-2" />
@@ -29,7 +49,7 @@ const TaskActions = ({ id, projectId, children }: Props) => {
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() => {}}
-            disabled={false}
+            disabled={isDeletingTask}
             className="p-[10px] font-medium"
           >
             <ExternalLinkIcon className="mr-2 size-4 stroke-2" />
@@ -37,15 +57,15 @@ const TaskActions = ({ id, projectId, children }: Props) => {
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() => {}}
-            disabled={false}
+            disabled={isDeletingTask}
             className="p-[10px] font-medium"
           >
             <PencilIcon className="mr-2 size-4 stroke-2" />
             Edit Task
           </DropdownMenuItem>
           <DropdownMenuItem
-            onClick={() => {}}
-            disabled={false}
+            onClick={onDelete}
+            disabled={isDeletingTask}
             className="p-[10px] font-medium text-amber-700 focus:text-amber-700"
           >
             <TrashIcon className="mr-2 size-4 stroke-2" />
@@ -53,6 +73,7 @@ const TaskActions = ({ id, projectId, children }: Props) => {
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
+      <ConfirmDialog />
     </div>
   );
 };
