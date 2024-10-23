@@ -6,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useBulkUpdateTasks } from "@/features/tasks/api/use-bulk-update-tasks";
 import { useGetTasks } from "@/features/tasks/api/use-get-tasks";
 import { columns } from "@/features/tasks/components/columns";
+import DataCalendar from "@/features/tasks/components/data-calendar";
 import DataFilters from "@/features/tasks/components/data-filters";
 import DataKanban from "@/features/tasks/components/data-kanban";
 import { DataTable } from "@/features/tasks/components/data-table";
@@ -90,7 +91,7 @@ const TaskViewSwitcher = () => {
               />
             </TabsContent>
             <TabsContent value="calendar" className="mt-0">
-              {JSON.stringify(tasks)}
+              <DataCalendar data={tasks?.documents ?? []} />
             </TabsContent>
           </>
         )}
