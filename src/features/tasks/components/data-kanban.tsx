@@ -9,6 +9,7 @@ import {
 } from "@hello-pangea/dnd";
 import { useState } from "react";
 import KanbanColumnHeader from "@/features/tasks/components/kanban-column-header";
+import KanbanCard from "@/features/tasks/components/kanban-card";
 
 type Props = {
   data: Task[];
@@ -62,6 +63,33 @@ const DataKanban = ({ data }: Props) => {
                 board={board}
                 taskCount={tasks[board].length}
               />
+              <Droppable droppableId={board}>
+                {(provided) => (
+                  <div
+                    {...provided.droppableProps}
+                    ref={provided.innerRef}
+                    className="min-h-[200px] py-1.5"
+                  >
+                    {tasks[board].map((task, index) => (
+                      <Draggable
+                        key={task.$id}
+                        draggableId={task.$id}
+                        index={index}
+                      >
+                        {(provided) => (
+                          <div
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                            ref={provided.innerRef}
+                          >
+                            <KanbanCard task={task} />
+                          </div>
+                        )}
+                      </Draggable>
+                    ))}
+                  </div>
+                )}
+              </Droppable>
             </div>
           );
         })}
