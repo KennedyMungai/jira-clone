@@ -3,6 +3,7 @@
 import DottedSeparator from "@/components/dotted-separator";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useBulkUpdateTasks } from "@/features/tasks/api/use-bulk-update-tasks";
 import { useGetTasks } from "@/features/tasks/api/use-get-tasks";
 import { columns } from "@/features/tasks/components/columns";
 import DataFilters from "@/features/tasks/components/data-filters";
@@ -27,6 +28,8 @@ const TaskViewSwitcher = () => {
 
   const workspaceId = useWorkspaceId();
 
+  const { mutate: bulkUpdate } = useBulkUpdateTasks();
+
   const { data: tasks, isLoading: isLoadingTasks } = useGetTasks({
     workspaceId,
     assigneeId,
@@ -38,9 +41,11 @@ const TaskViewSwitcher = () => {
 
   const onKanbanChange = useCallback(
     (tasks: { $id: string; status: TaskStatus; position: number }[]) => {
-      console.log({ tasks });
+      bulkUpdate({
+        json: { tasks },
+      });
     },
-    [],
+    [bulkUpdate],
   );
 
   return (
