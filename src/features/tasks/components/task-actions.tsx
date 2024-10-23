@@ -7,6 +7,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useDeleteTask } from "@/features/tasks/api/use-delete-task";
+import { useEditTaskModal } from "@/features/tasks/hooks/use-edit-task-modal";
 import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 import useConfirm from "@/hooks/use-confirm";
 import { ExternalLinkIcon, PencilIcon, TrashIcon } from "lucide-react";
@@ -31,6 +32,8 @@ const TaskActions = ({ id, projectId, children }: Props) => {
   );
 
   const workspaceId = useWorkspaceId();
+
+  const { open } = useEditTaskModal();
 
   const onDelete = async () => {
     const ok = await confirm();
@@ -68,7 +71,7 @@ const TaskActions = ({ id, projectId, children }: Props) => {
             Open Project
           </DropdownMenuItem>
           <DropdownMenuItem
-            onClick={() => {}}
+            onClick={() => open(id)}
             disabled={isDeletingTask}
             className="p-[10px] font-medium"
           >
