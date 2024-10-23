@@ -20,6 +20,19 @@ type Props = {
   children: ReactNode;
 };
 
+/**
+ * TaskActions component provides a dropdown menu with actions for managing a task.
+ * 
+ * @param {string} id - The ID of the task.
+ * @param {string} projectId - The ID of the project the task belongs to.
+ * @param {ReactNode} children - The children to be rendered as the trigger for the dropdown menu.
+ * 
+ * The component renders a dropdown menu with the following actions:
+ * - View Task Details: Navigates to the task details page.
+ * - Open Project: Navigates to the project page.
+ * - Edit Task: Opens the task in edit mode.
+ * - Delete Task: Deletes the task after confirmation, this action is destructive and cannot be undone.
+ */
 const TaskActions = ({ id, projectId, children }: Props) => {
   const router = useRouter();
 
