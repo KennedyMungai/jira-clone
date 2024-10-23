@@ -4,11 +4,11 @@ import { InferRequestType, InferResponseType } from "hono";
 import { toast } from "sonner";
 
 type ResponseType = InferResponseType<
-  (typeof client.api.tasks)["bulk-update"]["$patch"],
+  (typeof client.api.tasks)["bulk-update"]["$post"],
   200
 >;
 type RequestType = InferRequestType<
-  (typeof client.api.tasks)["bulk-update"]["$patch"]
+  (typeof client.api.tasks)["bulk-update"]["$post"]
 >;
 
 export const useBulkUpdateTasks = () => {
@@ -16,7 +16,7 @@ export const useBulkUpdateTasks = () => {
 
   const mutation = useMutation<ResponseType, Error, RequestType>({
     mutationFn: async ({ json }) => {
-      const response = await client.api.tasks["bulk-update"]["$patch"]({
+      const response = await client.api.tasks["bulk-update"]["$post"]({
         json,
       });
 

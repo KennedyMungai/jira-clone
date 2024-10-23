@@ -310,7 +310,7 @@ const app = new Hono()
       return c.json({ data: { $id: task.$id } });
     },
   )
-  .patch(
+  .post(
     "/bulk-update",
     sessionMiddleware,
     zValidator(
