@@ -1,9 +1,11 @@
 "use client";
 
-import { Task } from "@/features/tasks/types";
-import TaskActions from "@/features/tasks/components/task-actions";
-import { MoreHorizontalIcon } from "lucide-react";
+import DottedSeparator from "@/components/dotted-separator";
 import { Button } from "@/components/ui/button";
+import TaskActions from "@/features/tasks/components/task-actions";
+import TaskDate from "@/features/tasks/components/task-date";
+import { Task } from "@/features/tasks/types";
+import { MoreHorizontalIcon } from "lucide-react";
 
 type Props = {
   task: Task;
@@ -19,6 +21,15 @@ const KanbanCard = ({ task }: Props) => {
             <MoreHorizontalIcon className="size-[18px] shrink-0 stroke-1 text-neutral-700 transition hover:opacity-75" />
           </Button>
         </TaskActions>
+      </div>
+      <DottedSeparator />
+      <div className="5 flex items-center gap-x-1">
+        <TaskDate value={task.dueDate} className="text-xs" />
+      </div>
+      <div className="5 flex w-full items-center justify-end gap-x-1">
+        <span className="text-end text-xs font-medium">
+          {task.project.name}
+        </span>
       </div>
     </div>
   );
