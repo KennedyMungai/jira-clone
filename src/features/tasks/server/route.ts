@@ -124,6 +124,59 @@ const app = new Hono()
       });
     },
   )
+  .get(
+    "/:taskId",
+    sessionMiddleware,
+    zValidator("param", z.object({ taskId: z.string() })),
+    async (c) => {
+      const databases = c.get("databases");
+      const currentUser = c.get("user");
+
+      const { users } = await createAdminClient();
+
+      const { taskId } = c.req.valid("param");
+
+      const task = await databases.getDocument<Task>(
+        DATABASE_ID,
+        TASKS_ID,
+        taskId,
+      );
+
+      const currentMember = await getMember({
+        databases,
+        workspaceId: task.workspaceId,
+        userId: currentUser.$id,
+      });
+
+      if (!currentMember) return c.json({ error: "Unauthorized" }, 401);
+
+      const project = await databases.getDocument<Project>(
+        DATABASE_ID,
+        PROJECTS_ID,
+        task.projectId,
+      );
+
+      const member = await databases.getDocument(
+        DATABASE_ID,
+        MEMBERS_ID,
+        task.assigneeId,
+      );
+
+      const user = await users.get(member.userId);
+
+      const assignee = {
+        ...member,
+        name: user.name,
+        email: user.email,
+      };
+
+      return c.json({
+        ...task,
+        project,
+        assignee,
+      });
+    },
+  )
   .post(
     "/",
     sessionMiddleware,
@@ -191,14 +244,8 @@ const app = new Hono()
     zValidator("param", z.object({ taskId: z.string() })),
     zValidator("json", createTaskSchema.partial()),
     async (c) => {
-      const {
-        assigneeId,
-        description,
-        dueDate,
-        name,
-        projectId,
-        status,
-      } = c.req.valid("json");
+      const { assigneeId, description, dueDate, name, projectId, status } =
+        c.req.valid("json");
       const { taskId } = c.req.valid("param");
 
       const user = c.get("user");
