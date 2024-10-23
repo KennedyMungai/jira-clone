@@ -6,7 +6,8 @@ import TaskDate from "@/features/tasks/components/task-date";
 import { Task } from "@/features/tasks/types";
 import { snakeCaseToTitleCase } from "@/lib/utils";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDownIcon } from "lucide-react";
+import { ArrowUpDownIcon, MoreVerticalIcon } from "lucide-react";
+import TaskActions from "./task-actions";
 
 export const columns: ColumnDef<Task>[] = [
   {
@@ -95,6 +96,22 @@ export const columns: ColumnDef<Task>[] = [
       const status = row.original.status;
 
       return <Badge variant={status}>{snakeCaseToTitleCase(status)}</Badge>;
+    },
+  },
+  {
+    accessorKey: "actions",
+    header: "Actions",
+    cell: ({ row }) => {
+      const id = row.original.id;
+      const projectId = row.original.projectId;
+
+      return (
+        <TaskActions id={id} projectId={projectId}>
+          <Button size="icon" variant="ghost">
+            <MoreVerticalIcon className="size-4" />
+          </Button>
+        </TaskActions>
+      );
     },
   },
 ];
