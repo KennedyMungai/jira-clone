@@ -13,33 +13,6 @@ import { z } from "zod";
 
 const app = new Hono()
   .get(
-    "/:projectId",
-    zValidator("param", z.object({ projectId: z.string() })),
-    sessionMiddleware,
-    async (c) => {
-      const user = c.get("user");
-      const databases = c.get("databases");
-
-      const { projectId } = c.req.valid("param");
-
-      const project = await databases.getDocument<Project>(
-        DATABASE_ID,
-        TASKS_ID,
-        projectId,
-      );
-
-      const member = getMember({
-        databases,
-        workspaceId: project.workspaceId,
-        userId: user.$id,
-      });
-
-      if (!member) return c.json({ error: "Unauthorized" }, 401);
-
-      return c.json({ data: project });
-    },
-  )
-  .get(
     "/",
     zValidator("query", z.object({ workspaceId: z.string() })),
     sessionMiddleware,
@@ -67,6 +40,33 @@ const app = new Hono()
       ]);
 
       return c.json({ data: projects });
+    },
+  )
+  .get(
+    "/:projectId",
+    zValidator("param", z.object({ projectId: z.string() })),
+    sessionMiddleware,
+    async (c) => {
+      const user = c.get("user");
+      const databases = c.get("databases");
+
+      const { projectId } = c.req.valid("param");
+
+      const project = await databases.getDocument<Project>(
+        DATABASE_ID,
+        TASKS_ID,
+        projectId,
+      );
+
+      const member = getMember({
+        databases,
+        workspaceId: project.workspaceId,
+        userId: user.$id,
+      });
+
+      if (!member) return c.json({ error: "Unauthorized" }, 401);
+
+      return c.json({ data: project });
     },
   )
   .post(
