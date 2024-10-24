@@ -53,6 +53,7 @@ const TaskBreadCrumbs = ({ project, task }: Props) => {
         variant={"destructive"}
         size="sm"
         onClick={handleDeleteTask}
+        disabled={isDeletingTask}
       >
         <TrashIcon className="size-4 lg:mr-2" />
         <span className="hidden lg:block">Delete Task</span>
