@@ -1,5 +1,6 @@
 "use client";
 
+import CustomToolbar from "@/features/tasks/components/custom-toolbar";
 import EventCard from "@/features/tasks/components/event-card";
 import { Task } from "@/features/tasks/types";
 import {
@@ -81,6 +82,9 @@ const DataCalendar = ({ data }: Props) => {
             project={event.project}
             status={event.status}
           />
+        ),
+        toolbar: () => (
+          <CustomToolbar date={value} onNavigate={handleNavigate} />
         ),
       }}
     />
