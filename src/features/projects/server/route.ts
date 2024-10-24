@@ -54,7 +54,7 @@ const app = new Hono()
 
       const project = await databases.getDocument<Project>(
         DATABASE_ID,
-        TASKS_ID,
+        PROJECTS_ID,
         projectId,
       );
 

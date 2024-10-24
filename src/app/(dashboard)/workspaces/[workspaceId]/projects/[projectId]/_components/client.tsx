@@ -5,16 +5,16 @@ import PageLoader from "@/components/page-loader";
 import { Button } from "@/components/ui/button";
 import { useGetProject } from "@/features/projects/api/use-get-project";
 import ProjectAvatar from "@/features/projects/components/project-avatar";
-import { useProjectId } from "@/features/projects/hooks/use-project-id";
 import TaskViewSwitcher from "@/features/tasks/components/task-view-switcher";
-import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 import { EditIcon } from "lucide-react";
 import Link from "next/link";
 
-const ProjectDetailsClient = () => {
-  const projectId = useProjectId();
-  const workspaceId = useWorkspaceId();
+type Props = {
+  workspaceId: string;
+  projectId: string;
+};
 
+const ProjectDetailsClient = ({ workspaceId, projectId }: Props) => {
   const { data: project, isPending: isProjectPending } = useGetProject({
     projectId,
   });
