@@ -3,10 +3,6 @@ import { useParams } from "next/navigation";
 export const useProjectId = () => {
   const params = useParams;
 
-  const { projectId } = params as unknown as {
-    workspaceId: string;
-    projectId: string;
-  };
-
-  return projectId;
+  // @ts-expect-error The projectId string does not exist inside the params
+  return params.projectId as string;
 };
