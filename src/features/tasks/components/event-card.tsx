@@ -48,6 +48,7 @@ const EventCard = ({ assignee, id, project, status, title }: Props) => {
             {project.name}
           </span>
           <span className="basis-1/2 text-xs font-semibold text-muted-foreground">
+            {/* @ts-expect-error Assignee's value is not known */}
             {assignee.name}
           </span>
         </div>

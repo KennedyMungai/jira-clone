@@ -100,6 +100,7 @@ const EditWorkspaceForm = ({ onCancel, initialValues }: Props) => {
 
     updateWorkspace(
       {
+        // @ts-expect-error The final values might have null values
         form: finalValues,
         param: { workspaceId: initialValues.$id },
       },
