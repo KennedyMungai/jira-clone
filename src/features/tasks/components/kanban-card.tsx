@@ -23,7 +23,7 @@ const KanbanCard = ({ task }: Props) => {
         </TaskActions>
       </div>
       <DottedSeparator />
-      <div className="5 flex items-center gap-x-1">
+      <div className="flex items-center gap-x-1.5">
         <TaskDate value={task.dueDate} className="text-xs" />
       </div>
       <div className="5 flex w-full items-center justify-end gap-x-1">
