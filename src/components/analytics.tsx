@@ -1,8 +1,8 @@
 "use client";
 
+import AnalyticsCard from "@/components/analytics-card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ProjectAnalyticsResponseType } from "@/features/projects/api/use-get-project-analytics";
-import AnalyticsCard from "@/components/analytics-card";
 
 const Analytics = ({ data }: ProjectAnalyticsResponseType) => {
   if (!data) return null;
