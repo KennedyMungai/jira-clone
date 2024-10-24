@@ -57,6 +57,7 @@ const TaskBreadCrumbs = ({ project, task }: Props) => {
         <TrashIcon className="size-4 lg:mr-2" />
         <span className="hidden lg:block">Delete Task</span>
       </Button>
+      <ConfirmDialog />
     </div>
   );
 };
