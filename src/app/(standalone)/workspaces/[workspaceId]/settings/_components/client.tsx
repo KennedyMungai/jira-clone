@@ -18,7 +18,7 @@ const WorkspaceSettingsClient = ({ workspaceId }: Props) => {
   if (!initialValues) return <PageError message="Workspace not found" />;
 
   return (
-    <div className="size-full">
+    <div>
       <EditWorkspaceForm initialValues={initialValues} />
     </div>
   );
