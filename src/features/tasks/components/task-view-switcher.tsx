@@ -18,7 +18,11 @@ import { LoaderIcon, PlusIcon } from "lucide-react";
 import { useQueryState } from "nuqs";
 import { useCallback } from "react";
 
-const TaskViewSwitcher = () => {
+type Props = {
+  hideProjectFilter?: boolean;
+};
+
+const TaskViewSwitcher = ({ hideProjectFilter }: Props) => {
   const [{ assigneeId, dueDate, projectId, search, status }] = useTaskFilters();
 
   const [view, setView] = useQueryState("task-view", {
@@ -73,7 +77,7 @@ const TaskViewSwitcher = () => {
           </Button>
         </div>
         <DottedSeparator className="my-4" />
-        <DataFilters />
+        <DataFilters hideProjectFilter={hideProjectFilter} />
         <DottedSeparator className="my-4" />
         {isLoadingTasks ? (
           <div className="flex size-full h-[200px] flex-col items-center justify-center rounded-lg border">
