@@ -1,4 +1,4 @@
-import { DATABASE_ID, IMAGES_BUCKET_ID, PROJECTS_ID } from "@/config";
+import { DATABASE_ID, IMAGES_BUCKET_ID, PROJECTS_ID, TASKS_ID } from "@/config";
 import { Project } from "@/features/members/types";
 import { getMember } from "@/features/members/utils";
 import {
@@ -12,6 +12,33 @@ import { ID, Query } from "node-appwrite";
 import { z } from "zod";
 
 const app = new Hono()
+  .get(
+    "/:projectId",
+    zValidator("param", z.object({ projectId: z.string() })),
+    sessionMiddleware,
+    async (c) => {
+      const user = c.get("user");
+      const databases = c.get("databases");
+
+      const { projectId } = c.req.valid("param");
+
+      const project = await databases.getDocument<Project>(
+        DATABASE_ID,
+        TASKS_ID,
+        projectId,
+      );
+
+      const member = getMember({
+        databases,
+        workspaceId: project.workspaceId,
+        userId: user.$id,
+      });
+
+      if (!member) return c.json({ error: "Unauthorized" }, 401);
+
+      return c.json({ data: project });
+    },
+  )
   .get(
     "/",
     zValidator("query", z.object({ workspaceId: z.string() })),
