@@ -2,7 +2,10 @@
 
 import { Project } from "@/features/members/types";
 import { TaskStatus } from "@/features/tasks/types";
+import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
+import { MouseEvent } from "react";
 
 type Props = {
   id: string;
@@ -21,6 +24,15 @@ const statusColorMap: Record<TaskStatus, string> = {
 };
 
 const EventCard = ({ assignee, id, project, status, title }: Props) => {
+  const workspaceId = useWorkspaceId();
+  const router = useRouter();
+
+  const onClick = (e: MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+
+    router.push(`/workspaces/${workspaceId}/tasks/${id}`);
+  };
+
   return (
     <div className="px-2">
       <div
@@ -28,6 +40,7 @@ const EventCard = ({ assignee, id, project, status, title }: Props) => {
           "flex cursor-pointer flex-col gap-y-1.5 rounded-md border border-l-4 bg-white p-1.5 text-xs text-primary transition hover:opacity-75",
           statusColorMap[status],
         )}
+        onClick={onClick}
       >
         <p>{title}</p>
         <div className="flex items-center gap-x-1">
