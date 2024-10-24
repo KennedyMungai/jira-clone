@@ -22,7 +22,6 @@ import useConfirm from "@/hooks/use-confirm";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowLeftIcon, CopyIcon, ImageIcon } from "lucide-react";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useRef } from "react";
 import { useForm } from "react-hook-form";
@@ -96,7 +95,7 @@ const EditWorkspaceForm = ({ onCancel, initialValues }: Props) => {
   const onSubmit = (values: z.infer<typeof updateWorkspaceSchema>) => {
     const finalValues = {
       ...values,
-      image: values.image instanceof File ? values.image : undefined,
+      image: values.image instanceof File ? values.image : null,
     };
 
     updateWorkspace(
@@ -162,15 +161,11 @@ const EditWorkspaceForm = ({ onCancel, initialValues }: Props) => {
                       <div className="flex items-center gap-x-5">
                         {field.value ? (
                           <div className="relative size-[72px] overflow-hidden rounded-md">
-                            <Image
-                              src={
-                                field.value instanceof File
-                                  ? URL.createObjectURL(field.value)
-                                  : field.value
-                              }
-                              fill
+                            <image
+                              // @ts-expect-error field.value might be undefined
+                              src={field.value}
+                              alt="Workspace Icon"
                               className="object-cover"
-                              alt="workspace-logo"
                             />
                           </div>
                         ) : (
