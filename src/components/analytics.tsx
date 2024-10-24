@@ -1,23 +1,8 @@
 "use client";
 
-type Props = {
-  data?: {
-    tasksCount: number;
-    tasksDifference: number;
-    assignedTasksCount: number;
-    assignedTasksDifference: number;
-    incompleteTasksCount?: number;
-    incompleteTasksDifference?: number;
-    completedTasksCount: number;
-    completedTasksDifference: number;
-    overdueTasksCount: number;
-    overdueTasksDifference: number;
-    projectCount?: number;
-    projectDifference?: number;
-  };
-};
+import { ProjectAnalyticsResponseType } from "@/features/projects/api/use-get-project-analytics";
 
-const Analytics = ({ data }: Props) => {
+const Analytics = ({ data }: ProjectAnalyticsResponseType) => {
   if (!data) return null;
 
   return <div>Analytics</div>;

@@ -1,5 +1,11 @@
 import { client } from "@/lib/hc";
 import { useQuery } from "@tanstack/react-query";
+import { InferResponseType } from "hono";
+
+export type ProjectAnalyticsResponseType = InferResponseType<
+  (typeof client.api.projects)[":projectId"]["analytics"]["$get"],
+  200
+>;
 
 type Props = {
   projectId: string;
