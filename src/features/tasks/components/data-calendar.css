@@ -40,5 +40,5 @@
 }
 
 .rbc-off-range-bg {
-    @apply bg-amber-200;
+    background: inherit;
 }
