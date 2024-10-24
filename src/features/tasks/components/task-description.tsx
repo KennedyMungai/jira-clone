@@ -19,7 +19,10 @@ const TaskDescription = ({ task }: Props) => {
   const { mutate: updateTask, isPending: isUpdatingTask } = useUpdateTask();
 
   const handleSave = () => {
-    updateTask({ json: { description: value }, param: { taskId: task.$id } });
+    updateTask(
+      { json: { description: value }, param: { taskId: task.$id } },
+      { onSuccess: () => setIsEditing(false) },
+    );
   };
 
   return (
