@@ -1,5 +1,6 @@
 import DottedSeparator from "@/components/dotted-separator";
 import { Button } from "@/components/ui/button";
+import OverviewProperty from "@/features/tasks/components/overview-property";
 import { Task } from "@/features/tasks/types";
 import { PencilIcon } from "lucide-react";
 
