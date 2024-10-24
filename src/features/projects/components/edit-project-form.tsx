@@ -81,18 +81,14 @@ const EditProjectForm = ({ onCancel, initialValues }: Props) => {
   const onSubmit = (values: z.infer<typeof updateProjectSchema>) => {
     const finalValues = {
       ...values,
-      image: values.image instanceof File ? values.image : undefined,
+      image: values.image instanceof File ? values.image : null,
     };
 
-    updateProject(
-      {
-        form: finalValues,
-        param: { projectId: initialValues.$id },
-      },
-      {
-        onSuccess: () => form.reset(),
-      },
-    );
+    updateProject({
+      // @ts-expect-error The final values might have null values
+      form: finalValues,
+      param: { projectId: initialValues.$id },
+    });
   };
 
   return (
