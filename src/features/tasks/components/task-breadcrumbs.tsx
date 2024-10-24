@@ -8,6 +8,7 @@ import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 import useConfirm from "@/hooks/use-confirm";
 import { ChevronRightIcon, TrashIcon } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 type Props = {
   project: Project;
@@ -15,6 +16,8 @@ type Props = {
 };
 
 const TaskBreadCrumbs = ({ project, task }: Props) => {
+  const router = useRouter();
+
   const workspaceId = useWorkspaceId();
 
   const { mutate: deleteTask, isPending: isDeletingTask } = useDeleteTask();
@@ -30,7 +33,10 @@ const TaskBreadCrumbs = ({ project, task }: Props) => {
 
     if (!ok) return;
 
-    deleteTask({ param: { taskId: task.$id } });
+    deleteTask(
+      { param: { taskId: task.$id } },
+      { onSuccess: () => router.push(`/workspaces/${workspaceId}/tasks`) },
+    );
   };
 
   return (
