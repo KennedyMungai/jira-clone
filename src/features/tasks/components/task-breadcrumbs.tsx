@@ -2,8 +2,10 @@
 
 import { Button } from "@/components/ui/button";
 import { Project } from "@/features/members/types";
+import { useDeleteTask } from "@/features/tasks/api/use-delete-task";
 import { Task } from "@/features/tasks/types";
 import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
+import useConfirm from "@/hooks/use-confirm";
 import { ChevronRightIcon, TrashIcon } from "lucide-react";
 import Link from "next/link";
 
@@ -14,6 +16,22 @@ type Props = {
 
 const TaskBreadCrumbs = ({ project, task }: Props) => {
   const workspaceId = useWorkspaceId();
+
+  const { mutate: deleteTask, isPending: isDeletingTask } = useDeleteTask();
+
+  const [ConfirmDialog, confirm] = useConfirm(
+    "Delete Task?",
+    "This operation is irreversible",
+    "destructive",
+  );
+
+  const handleDeleteTask = async () => {
+    const ok = await confirm();
+
+    if (!ok) return;
+
+    deleteTask({ param: { taskId: task.$id } });
+  };
 
   return (
     <div className="flex items-center gap-x-2">
@@ -28,6 +46,7 @@ const TaskBreadCrumbs = ({ project, task }: Props) => {
         className="ml-auto flex items-center"
         variant={"destructive"}
         size="sm"
+        onClick={handleDeleteTask}
       >
         <TrashIcon className="size-4 lg:mr-2" />
         <span className="hidden lg:block">Delete Task</span>
