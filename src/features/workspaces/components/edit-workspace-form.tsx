@@ -98,16 +98,11 @@ const EditWorkspaceForm = ({ onCancel, initialValues }: Props) => {
       image: values.image instanceof File ? values.image : null,
     };
 
-    updateWorkspace(
-      {
-        // @ts-expect-error The final values might have null values
-        form: finalValues,
-        param: { workspaceId: initialValues.$id },
-      },
-      {
-        onSuccess: () => form.reset(),
-      },
-    );
+    updateWorkspace({
+      // @ts-expect-error The final values might have null values
+      form: finalValues,
+      param: { workspaceId: initialValues.$id },
+    });
   };
 
   const fullInviteLink = `${window.location.origin}/workspaces/${initialValues.$id}/join/${initialValues.inviteCode}`;
