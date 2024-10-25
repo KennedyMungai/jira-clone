@@ -5,8 +5,8 @@ export enum MemberRole {
   MEMBER = "member",
 }
 
-export type Project = Models.Document & {
-  name: string;
-  imageUrl: string;
+export type Member = Models.Document & {
   workspaceId: string;
+  userId: string;
+  role: MemberRole;
 };
