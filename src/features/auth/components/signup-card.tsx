@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useRegister } from "@/features/auth/api/use-register";
-import { signUpWithGithub } from "@/lib/oauth";
+import { signUpWithGithub, signUpWithGoogle } from "@/lib/oauth";
 import { signUpSchema } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
@@ -138,7 +138,7 @@ const SignUpCard = () => {
           size="lg"
           className="w-full"
           disabled={isPending}
-          onClick={() => signUpWithGithub()}
+          onClick={() => signUpWithGoogle()}
         >
           <FcGoogle size={24} className="mr-2" />
           Login with Google
@@ -148,6 +148,7 @@ const SignUpCard = () => {
           size="lg"
           className="w-full"
           disabled={isPending}
+          onClick={() => signUpWithGithub()}
         >
           <FaGithub size={24} className="mr-2" />
           Login with Github

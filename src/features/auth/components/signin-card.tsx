@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useLogin } from "@/features/auth/api/use-login";
-import { signUpWithGithub } from "@/lib/oauth";
+import { signUpWithGithub, signUpWithGoogle } from "@/lib/oauth";
 import { signInSchema } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
@@ -99,6 +99,7 @@ const SignInCard = () => {
           size="lg"
           className="w-full"
           disabled={isPending}
+          onClick={() => signUpWithGoogle()}
         >
           <FcGoogle size={24} className="mr-2" />
           Login with Google
