@@ -1,5 +1,6 @@
 import { getCurrent } from "@/features/auth/queries";
 import { redirect } from "next/navigation";
+import WorkspaceDetailsClient from "./_components/client";
 
 type Props = {
   params: {
@@ -12,7 +13,7 @@ const WorkspacePage = async ({ params: { workspaceId } }: Props) => {
 
   if (!user) redirect("/sign-in");
 
-  return <div>{workspaceId}</div>;
+  return <WorkspaceDetailsClient workspaceId={workspaceId} />;
 };
 
 export default WorkspacePage;
