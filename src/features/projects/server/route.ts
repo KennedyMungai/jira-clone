@@ -1,10 +1,10 @@
 import { DATABASE_ID, IMAGES_BUCKET_ID, PROJECTS_ID, TASKS_ID } from "@/config";
-import { Project } from "@/features/members/types";
 import { getMember } from "@/features/members/utils";
 import {
   createProjectSchema,
   updateProjectSchema,
 } from "@/features/projects/schemas";
+import { Project } from "@/features/projects/types";
 import { TaskStatus } from "@/features/tasks/types";
 import { sessionMiddleware } from "@/lib/session-middleware";
 import { zValidator } from "@hono/zod-validator";
