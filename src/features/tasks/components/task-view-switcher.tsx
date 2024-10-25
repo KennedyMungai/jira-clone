@@ -20,9 +20,13 @@ import { useCallback } from "react";
 
 type Props = {
   hideProjectFilter?: boolean;
+  projectId: string;
 };
 
-const TaskViewSwitcher = ({ hideProjectFilter }: Props) => {
+const TaskViewSwitcher = ({
+  hideProjectFilter,
+  projectId: paramProjectId,
+}: Props) => {
   const [{ assigneeId, dueDate, projectId, search, status }] = useTaskFilters();
 
   const [view, setView] = useQueryState("task-view", {
@@ -39,7 +43,7 @@ const TaskViewSwitcher = ({ hideProjectFilter }: Props) => {
     workspaceId,
     assigneeId,
     dueDate,
-    projectId,
+    projectId: projectId || paramProjectId,
     search,
     status,
   });

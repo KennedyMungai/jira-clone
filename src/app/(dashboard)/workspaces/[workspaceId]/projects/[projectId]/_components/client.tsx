@@ -57,7 +57,7 @@ const ProjectDetailsClient = ({ workspaceId, projectId }: Props) => {
         </div>
       </div>
       {projectAnalytics && <Analytics data={projectAnalytics} />}
-      <TaskViewSwitcher hideProjectFilter />
+      <TaskViewSwitcher hideProjectFilter projectId={projectId} />
     </div>
   );
 };
