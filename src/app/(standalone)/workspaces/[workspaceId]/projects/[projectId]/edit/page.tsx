@@ -10,9 +10,7 @@ type Props = {
   };
 };
 
-const ProjectEditPage = async ({
-  params: { workspaceId, projectId },
-}: Props) => {
+const ProjectEditPage = async ({ params: { projectId } }: Props) => {
   const user = await getCurrent();
 
   if (!user) redirect("/sign-in");

@@ -13,7 +13,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Project } from "@/features/members/types";
 import { useDeleteProject } from "@/features/projects/api/use-delete-project";
 import { useUpdateProject } from "@/features/projects/api/use-update-project";
 import { updateProjectSchema } from "@/features/projects/schemas";
@@ -26,6 +25,7 @@ import { useRouter } from "next/navigation";
 import { ChangeEvent, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { Project } from "@/features/projects/types";
 
 type Props = {
   onCancel?: () => void;

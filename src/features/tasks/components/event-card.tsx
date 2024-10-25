@@ -1,6 +1,7 @@
 "use client";
 
-import { Project } from "@/features/members/types";
+import { Member } from "@/features/members/types";
+import { Project } from "@/features/projects/types";
 import { TaskStatus } from "@/features/tasks/types";
 import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 import { cn } from "@/lib/utils";
@@ -10,7 +11,7 @@ import { MouseEvent } from "react";
 type Props = {
   id: string;
   title: string;
-  assignee: unknown;
+  assignee: Member;
   project: Project;
   status: TaskStatus;
 };
@@ -48,7 +49,6 @@ const EventCard = ({ assignee, id, project, status, title }: Props) => {
             {project.name}
           </span>
           <span className="basis-1/2 text-xs font-semibold text-muted-foreground">
-            {/* @ts-expect-error Assignee's value is not known */}
             {assignee.name}
           </span>
         </div>

@@ -86,7 +86,7 @@ const DataKanban = ({ data, onChange }: Props) => {
         $id: string;
         status: TaskStatus;
         position: number;
-      }[];
+      }[] = [];
 
       setTasks((prevTasks) => {
         const newTasks = { ...prevTasks };

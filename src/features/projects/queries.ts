@@ -1,6 +1,6 @@
 import { DATABASE_ID, PROJECTS_ID } from "@/config";
-import { Project } from "@/features/members/types";
 import { getMember } from "@/features/members/utils";
+import { Project } from "@/features/projects/types";
 import { createSessionClient } from "@/lib/appwrite";
 
 type GetWorkspaceProps = {

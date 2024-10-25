@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Project } from "@/features/members/types";
+import { Project } from "@/features/projects/types";
 import { useDeleteTask } from "@/features/tasks/api/use-delete-task";
 import { Task } from "@/features/tasks/types";
 import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";

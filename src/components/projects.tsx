@@ -16,7 +16,7 @@ const Projects = () => {
 
   const { open } = useCreateProjectModal();
 
-  const { data: projects, isPending: isFetchingProjects } = useGetProjects({
+  const { data: projects } = useGetProjects({
     workspaceId,
   });
 

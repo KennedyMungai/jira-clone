@@ -20,7 +20,7 @@ import { useCallback } from "react";
 
 type Props = {
   hideProjectFilter?: boolean;
-  projectId: string;
+  projectId?: string;
 };
 
 const TaskViewSwitcher = ({
