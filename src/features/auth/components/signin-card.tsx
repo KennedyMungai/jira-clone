@@ -18,7 +18,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { FaGithub } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
 import { z } from "zod";
 
 const SignInCard = () => {
@@ -94,15 +93,6 @@ const SignInCard = () => {
         <DottedSeparator />
       </div>
       <CardContent className="flex flex-col gap-y-4 p-7">
-        <Button
-          variant={"secondary"}
-          size="lg"
-          className="w-full"
-          disabled={isPending}
-        >
-          <FcGoogle size={24} className="mr-2" />
-          Login with Google
-        </Button>
         <Button
           variant={"secondary"}
           size="lg"
