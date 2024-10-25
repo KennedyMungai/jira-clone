@@ -1,8 +1,8 @@
 import { Models } from "node-appwrite";
 
 export enum MemberRole {
-  ADMIN = "admin",
-  MEMBER = "member",
+  ADMIN = "ADMIN",
+  MEMBER = "MEMBER",
 }
 
 export type Member = Models.Document & {
