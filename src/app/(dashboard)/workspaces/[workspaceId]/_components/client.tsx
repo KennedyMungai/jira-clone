@@ -7,7 +7,9 @@ import PageLoader from "@/components/page-loader";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useGetMembers } from "@/features/members/api/use-get-members";
+import { Project } from "@/features/members/types";
 import { useGetProjects } from "@/features/projects/api/use-get-projects";
+import ProjectAvatar from "@/features/projects/components/project-avatar";
 import { useCreateProjectModal } from "@/features/projects/hooks/use-create-project-modal";
 import { useGetTasks } from "@/features/tasks/api/use-get-tasks";
 import { useCreateTaskModal } from "@/features/tasks/hooks/use-create-task-modal";
@@ -34,8 +36,6 @@ const WorkspaceDetailsClient = ({ workspaceId }: Props) => {
     workspaceId,
   });
 
-  const { open: createProject } = useCreateProjectModal();
-
   const isLoading =
     isLoadingWorkspaceAnalytics ||
     isLoadingTasks ||
@@ -54,6 +54,11 @@ const WorkspaceDetailsClient = ({ workspaceId }: Props) => {
         <TaskList
           data={tasks.documents}
           total={tasks.total}
+          workspaceId={workspaceId}
+        />
+        <ProjectList
+          data={projects.documents}
+          total={projects.total}
           workspaceId={workspaceId}
         />
       </div>
@@ -111,6 +116,53 @@ export const TaskList = ({ data, total, workspaceId }: TaskListProps) => {
         <Button variant={"muted"} className="mt-4 w-full" asChild>
           <Link href={`/workspaces/${workspaceId}/tasks`}>Show All</Link>
         </Button>
+      </div>
+    </div>
+  );
+};
+
+type ProjectListProps = {
+  data: Project[];
+  total: number;
+  workspaceId: string;
+};
+
+export const ProjectList = ({ data, total, workspaceId }: ProjectListProps) => {
+  const { open: createProject } = useCreateProjectModal();
+
+  return (
+    <div className="col-span-1 flex flex-col gap-y-4">
+      <div className="rounded-lg border bg-white p-4">
+        <div className="flex items-center justify-between">
+          <p className="text-lg font-semibold">Projects ({total})</p>
+          <Button variant={"secondary"} size="icon" onClick={createProject}>
+            <PlusIcon className="size-4 text-neutral-400" />
+          </Button>
+        </div>
+        <DottedSeparator className="my-4" />
+        <ul className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+          {data.map((project) => (
+            <li key={project.$id}>
+              <Link href={`/workspaces/${workspaceId}/projects/${project.$id}`}>
+                <Card className="rounded-lg shadow-none transition hover:opacity-75">
+                  <CardContent className="flex items-center gap-x-2.5 p-4">
+                    <ProjectAvatar
+                      className="size-12"
+                      fallbackClassName="text-lg"
+                      name={project.name}
+                    />
+                    <p className="truncate text-lg font-medium">
+                      {project.name}
+                    </p>
+                  </CardContent>
+                </Card>
+              </Link>
+            </li>
+          ))}
+          <li className="hidden text-center text-sm text-muted-foreground first-of-type:block">
+            No tasks found
+          </li>
+        </ul>
       </div>
     </div>
   );
